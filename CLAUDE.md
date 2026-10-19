@@ -23,6 +23,7 @@ HTML / CSS / JavaScript だけで作った静的サイト（ビルド不要）�
 ## 注意
 
 - 共通の設定（ナビ、SNS、お問い合わせフォームのURL）は `js/site.config.js` に集約している
-- 新しいページは既存ページの `<head>` を複製し、title・description・OGP を書き換える
+- 新しいページは既存ページの `<head>` を複製し、title・description・OGP・canonical・og:url・パンくずの JSON-LD を書き換え、`sitemap.xml` に追加する
+- 公開URL：https://yugenqjp.netlify.app
 - 公開してはいけない情報（パスワード、APIキーなど）をリポジトリに入れない。リポジトリは公開設定
 - README.md・CLAUDE.md・netlify.toml は `netlify.toml` の設定で公開サイトからは見えない

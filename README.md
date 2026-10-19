@@ -184,14 +184,21 @@ JSONの形：`[{ "id", "platform", "date", "text", "url", "image"?, "imageAlt"? 
 
 ページを追加するときは、既存ページの `<head>` を複製し、`title`・`description`・`og:title`・`og:description`・`og:image` をそのページの内容に書き換えてください。
 
-### 公開ドメインが決まったら追加するもの
+### 公開URLにもとづく設定（https://yugenqjp.netlify.app）
 
-次の項目は公開URL（例: https://〇〇.jp）が必要なため、まだ入れていません。
+- `<link rel="canonical">` と `og:url`：各ページの正式なURL。Netlify では `/services` と `/services.html` のどちらでも表示されるため、`.html` 付きのURLに統一している
+- `sitemap.xml`：検索結果に載せたい7ページ（noindex のプライバシーポリシーと記事テンプレートは除外）。`robots.txt` にも場所を記載
+- 構造化データ（JSON-LD）：トップに組織情報（Organization。X・Instagram へのリンクを含む）とサイト情報（WebSite）、下層ページにパンくずリスト（BreadcrumbList）、記事テンプレートに記事（Article）
 
-- `<link rel="canonical">` と `og:url`
-- `sitemap.xml` と、`robots.txt` の `Sitemap:` 行
-- 構造化データ（JSON-LD）：組織情報（Organization）、サイト情報（WebSite）、パンくずリスト（BreadcrumbList）、記事（Article）
-- Google Search Console への登録とサイトマップの送信
+ページを追加・更新したときは、そのページの canonical・og:url・パンくずの JSON-LD を入れ、`sitemap.xml` に URL を追加して `lastmod`（更新日）を書き換えてください。
+
+**独自ドメインに切り替えるとき**は、全ファイルの `https://yugenqjp.netlify.app` を新しいドメインに一括置換してください（各ページの head、`sitemap.xml`、`robots.txt`）。
+
+### 公開後にやること
+
+1. [Google Search Console](https://search.google.com/search-console) で「URLプレフィックス」に `https://yugenqjp.netlify.app/` を登録する（所有権の確認は「HTMLタグ」方式が簡単。表示された `<meta name="google-site-verification" …>` を index.html の head に追加して公開する）
+2. 「サイトマップ」に `sitemap.xml` を送信する
+3. [リッチリザルト テスト](https://search.google.com/test/rich-results) でトップページと下層ページを確認し、構造化データにエラーがないか見る
 
 ## 写真（Unsplash）
 

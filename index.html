@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>YUGENQ｜日本企業百科事典・企業調査・市場分析</title>
   <meta name="description" content="YUGENQは、日本企業の沿革・事業・財務を記録する「日本企業百科事典」と、市場分析・調査レポート・企業データ提供・アドバイザリーで、投資・経営・取引の判断を支えるリサーチカンパニーです。">
+  <link rel="canonical" href="https://yugenqjp.netlify.app/">
 
   <!-- OGP / SNSでシェアされたときの表示 -->
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yugenqjp.netlify.app/">
   <meta property="og:site_name" content="YUGENQ">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:title" content="YUGENQ｜日本企業百科事典・企業調査・市場分析">
@@ -17,6 +19,42 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="夕日に照らされる富士山">
   <meta name="twitter:card" content="summary_large_image">
+
+  <!-- 構造化データ（検索エンジン向けの組織・パンくず情報） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://yugenqjp.netlify.app/#organization",
+        "name": "YUGENQ",
+        "url": "https://yugenqjp.netlify.app/",
+        "description": "日本企業の情報を体系的に記録し、市場の動向を独自の視点で読み解くリサーチカンパニー。",
+        "sameAs": [
+          "https://x.com/YUGENQjp",
+          "https://www.instagram.com/yugenqjp/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "url": "https://yugenqjp.netlify.app/contact.html",
+          "availableLanguage": "Japanese"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://yugenqjp.netlify.app/#website",
+        "name": "YUGENQ",
+        "url": "https://yugenqjp.netlify.app/",
+        "inLanguage": "ja",
+        "publisher": {
+          "@id": "https://yugenqjp.netlify.app/#organization"
+        }
+      }
+    ]
+  }
+  </script>
   <meta name="theme-color" content="#0e1724">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <script>document.documentElement.classList.add("js");</script>

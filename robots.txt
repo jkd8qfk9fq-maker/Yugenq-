@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# 公開ドメインが決まったら、サイトマップの場所を追記する
-# Sitemap: https://（公開ドメイン）/sitemap.xml
+Sitemap: https://yugenqjp.netlify.app/sitemap.xml

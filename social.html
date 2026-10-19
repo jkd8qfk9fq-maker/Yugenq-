@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>公式SNS｜最新情報とお知らせ｜YUGENQ</title>
   <meta name="description" content="YUGENQの公式SNSアカウント（X・Instagram）と最新の投稿。レポートの公開や日本企業百科事典の更新情報、ブランドの取り組みをお知らせしています。">
+  <link rel="canonical" href="https://yugenqjp.netlify.app/social.html">
 
   <!-- OGP / SNSでシェアされたときの表示 -->
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yugenqjp.netlify.app/social.html">
   <meta property="og:site_name" content="YUGENQ">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:title" content="公式SNS｜最新情報とお知らせ｜YUGENQ">
@@ -17,6 +19,32 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="スマートフォンを操作する手">
   <meta name="twitter:card" content="summary_large_image">
+
+  <!-- 構造化データ（検索エンジン向けの組織・パンくず情報） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "ホーム",
+            "item": "https://yugenqjp.netlify.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "公式SNS",
+            "item": "https://yugenqjp.netlify.app/social.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <meta name="theme-color" content="#0e1724">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <script>document.documentElement.classList.add("js");</script>
