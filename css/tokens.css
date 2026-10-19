@@ -1,0 +1,124 @@
+/* ==========================================================================
+   YUGENQ Design Tokens
+   色・書体・余白・レイアウトの基準値。値の変更はこのファイルのみで行う。
+   ========================================================================== */
+
+:root {
+  /* ---- Color : base palette ---- */
+  --c-ink: #0e1724;          /* ブルーブラック（主要な暗色面） */
+  --c-ink-raised: #172235;   /* ブルーブラック上の一段明るい面 */
+  --c-charcoal: #2f3237;     /* 本文テキスト・CTA帯 */
+  --c-charcoal-soft: #585c64;/* 補足テキスト（アイボリー上 6:1 以上） */
+  --c-white: #ffffff;
+  --c-ivory: #f4f1e8;        /* 基調の明色面 */
+  --c-ivory-deep: #e7e2d5;   /* アイボリー上の面・罫線補助 */
+  --c-mist: #9aa4b2;         /* ブルーブラック上の補足テキスト */
+  --c-focus: #2c5aa0;
+
+  /* ---- Semantic (セクションのテーマで切り替わる) ---- */
+  --surface: var(--c-ivory);
+  --text: var(--c-charcoal);
+  --text-muted: var(--c-charcoal-soft);
+  --heading: var(--c-ink);
+  --line: rgba(47, 50, 55, 0.16);
+  --line-strong: rgba(47, 50, 55, 0.4);
+  --focus: var(--c-focus);
+  --card: var(--c-white);
+  --slash: var(--c-ink);
+
+  /* ---- Typography ---- */
+  --ff-serif: "Shippori Mincho B1", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+  --ff-sans: "Zen Kaku Gothic New", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif;
+
+  --fs-xs: 0.75rem;                              /* 12px 注記 */
+  --fs-sm: 0.875rem;                             /* 14px メタ情報 */
+  --fs-base: 1rem;                               /* 16px 本文 */
+  --fs-md: 1.125rem;                             /* 18px リード */
+  --fs-lg: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --fs-xl: clamp(1.5rem, 1.25rem + 1.1vw, 2.125rem);
+  --fs-2xl: clamp(1.875rem, 1.4rem + 2vw, 3rem);
+  --fs-3xl: clamp(2.25rem, 1.5rem + 3.4vw, 4.5rem);
+
+  --lh-tight: 1.45;
+  --lh-heading: 1.6;
+  --lh-body: 1.95;     /* 和文本文 */
+  --ls-heading: 0.06em;
+  --ls-body: 0.04em;
+
+  /* ---- Space (8px base) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-section: clamp(4.5rem, 3rem + 7vw, 9rem);
+
+  /* ---- Layout ---- */
+  --container: 76rem;      /* 1216px */
+  --measure: 38em;         /* 本文の行長 */
+  --gutter: clamp(1rem, 0.5rem + 3vw, 3rem);
+  --header-h: 4.5rem;
+
+  /* ---- Shape : 階層ごとに角丸を変える ---- */
+  --radius-sm: 10px;    /* 入力欄・タグ */
+  --radius: 18px;       /* カード */
+  --radius-lg: 28px;    /* 画像・大きな面 */
+  --radius-pill: 999px; /* ボタン */
+
+  /* ---- Elevation ---- */
+  --shadow-rest: 0 1px 2px rgba(14, 23, 36, 0.04), 0 4px 14px -6px rgba(14, 23, 36, 0.08);
+  --shadow-lift: 0 28px 48px -18px rgba(14, 23, 36, 0.28), 0 10px 18px -10px rgba(14, 23, 36, 0.16);
+  --lift: -8px;
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);     /* ふわっと止まる */
+  --ease-sharp: cubic-bezier(0.7, 0, 0.2, 1);    /* 斜めラインの鋭い走り */
+  --dur-fast: 160ms;
+  --dur: 320ms;
+  --dur-lift: 520ms;
+  --dur-slow: 900ms;
+  --dur-reveal: 1200ms;
+
+  /* ---- Diagonal ---- */
+  --slash-angle: 32deg;  /* 斜めラインの基準角（垂直からの傾き） */
+  --edge-h: 7vw;         /* セクション境界の斜めカットの高さ */
+
+  color-scheme: light;
+}
+
+/* 暗色セクション（ブルーブラック面） */
+.theme-ink {
+  --surface: var(--c-ink);
+  --text: rgba(244, 241, 232, 0.86);
+  --text-muted: var(--c-mist);
+  --heading: var(--c-ivory);
+  --line: rgba(244, 241, 232, 0.14);
+  --line-strong: rgba(244, 241, 232, 0.4);
+  --focus: var(--c-ivory);
+  --card: var(--c-ink-raised);
+  --slash: var(--c-ivory);
+}
+
+/* チャコール面 */
+.theme-charcoal {
+  --surface: var(--c-charcoal);
+  --text: rgba(255, 255, 255, 0.86);
+  --text-muted: #b9bcc2;
+  --heading: var(--c-white);
+  --line: rgba(255, 255, 255, 0.16);
+  --line-strong: rgba(255, 255, 255, 0.45);
+  --focus: var(--c-white);
+  --card: #383b41;
+  --slash: var(--c-white);
+}
+
+/* 白面 */
+.theme-white {
+  --surface: var(--c-white);
+  --card: var(--c-ivory);
+}

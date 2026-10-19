@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>公式SNS｜最新情報とお知らせ｜YUGENQ</title>
+  <meta name="description" content="YUGENQの公式SNSアカウント（X・Instagram）と最新の投稿。レポートの公開や日本企業百科事典の更新情報、ブランドの取り組みをお知らせしています。">
+
+  <!-- OGP / SNSでシェアされたときの表示 -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="YUGENQ">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:title" content="公式SNS｜最新情報とお知らせ｜YUGENQ">
+  <meta property="og:description" content="YUGENQの公式SNSアカウント（X・Instagram）と最新の投稿。レポートの公開や日本企業百科事典の更新情報、ブランドの取り組みをお知らせしています。">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1532356884227-66d7c0e9e4c2?fm=jpg&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="スマートフォンを操作する手">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0e1724">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <script src="js/core.js" defer></script>
+  <script src="js/site.config.js" defer></script>
+  <script src="js/components/site-header.js" defer></script>
+  <script src="js/components/site-footer.js" defer></script>
+  <!-- SNS : 投稿データ（サンプル）→ コンポーネントの順で読み込む -->
+  <script src="js/data/social-posts.js" defer></script>
+  <script src="js/components/social.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/motion.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+  <yq-header current="social">
+    <div class="container"><a class="site-logo" href="index.html">YUGENQ</a></div>
+  </yq-header>
+
+  <main id="main">
+    <section class="page-hero theme-ivory" aria-labelledby="page-title">
+      <div class="slashes slashes--side" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="container">
+        <nav class="breadcrumb" aria-label="パンくずリスト">
+          <ol><li><a href="index.html">ホーム</a></li><li aria-current="page">公式SNS</li></ol>
+        </nav>
+        <div class="page-hero__inner">
+          <p class="page-hero__en" aria-hidden="true">Social</p>
+          <div>
+            <h1 class="page-hero__title" id="page-title">公式SNS</h1>
+            <p class="page-hero__lead">レポートの公開や、日本企業百科事典の更新をお知らせしています。媒体ごとに、異なる角度から発信しています。</p>
+          </div>
+        </div>
+        <div class="media media--wide page-visual" data-parallax="-60">
+          <img src="https://images.unsplash.com/photo-1532356884227-66d7c0e9e4c2?auto=format&amp;fit=crop&amp;w=1400&amp;q=75" srcset="https://images.unsplash.com/photo-1532356884227-66d7c0e9e4c2?auto=format&amp;fit=crop&amp;w=800&amp;q=75 800w, https://images.unsplash.com/photo-1532356884227-66d7c0e9e4c2?auto=format&amp;fit=crop&amp;w=1400&amp;q=75 1400w, https://images.unsplash.com/photo-1532356884227-66d7c0e9e4c2?auto=format&amp;fit=crop&amp;w=2000&amp;q=75 2000w" sizes="(min-width: 1216px) 1120px, 92vw" alt="スマートフォンを操作する手" width="1600" height="1000" decoding="async">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== アカウント一覧（js/site.config.js の social から生成） ===== -->
+    <section class="section theme-ivory" aria-labelledby="accounts-title">
+      <div class="container section-grid">
+        <header class="section-head">
+          <p class="section-head__en" aria-hidden="true">Accounts</p>
+          <h2 class="section-head__title" id="accounts-title">公式アカウント</h2>
+        </header>
+        <div class="section-body">
+          <yq-social-accounts>
+            <p class="note">公式アカウントの一覧を表示するには JavaScript を有効にしてください。</p>
+          </yq-social-accounts>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 投稿フィード ===== -->
+    <section class="section theme-white" aria-labelledby="feed-title">
+      <div class="container section-grid">
+        <header class="section-head">
+          <p class="section-head__en" aria-hidden="true">Latest posts</p>
+          <h2 class="section-head__title" id="feed-title">最新の投稿</h2>
+        </header>
+        <div class="section-body">
+          <!--
+            provider="local" : js/data/social-posts.js のサンプル
+            本番例 : <yq-social-feed provider="json" endpoint="/api/social-posts.json" limit="9" filterable>
+          -->
+          <yq-social-feed provider="local" limit="9" filterable>
+            <p class="note">投稿を表示するには JavaScript を有効にしてください。</p>
+          </yq-social-feed>
+          <p class="note">※ 表示中の投稿はサンプルです。各SNSとの連携後に実際の投稿が表示されます。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <yq-footer>
+    <div class="container"><p><small>&copy; YUGENQ</small></p></div>
+  </yq-footer>
+</body>
+</html>

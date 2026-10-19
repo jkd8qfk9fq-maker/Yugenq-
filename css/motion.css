@@ -1,0 +1,384 @@
+/* ==========================================================================
+   Motion : 斜めライン・スクロール演出・ホバー演出
+   --------------------------------------------------------------------------
+   演出はこのファイルと js/motion.js にまとめている。
+   - .slashes        鋭い斜めラインの束（ヒーロー、CTA、メッセージ等）
+   - .edge-top/bottom セクション境界の斜めカット
+   - .section-head   見出しの罫線が走り、斜めの切れ込みが入る
+   - .media          画像が斜めのワイプで現れ、スクロールに合わせてスライド
+   - .slide-strip    スクロールに連動して横に流れる画像帯
+   - .button         ホバーで斜めの光が走る
+
+   初期状態（非表示）は html.js かつ動きを減らす設定でない場合だけ適用する。
+   JavaScript が無効でも、動きを減らす設定でも、内容はすべて表示される。
+   ========================================================================== */
+
+/* ---- Slashes : 鋭い斜めライン ------------------------------------------ */
+.slashes {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.slashes span {
+  position: absolute;
+  top: -30%;
+  left: var(--x, 60%);
+  width: var(--w, 1px);
+  height: 160%;
+  background: linear-gradient(to bottom, transparent, var(--slash) 25%, var(--slash) 75%, transparent);
+  opacity: var(--o, 0.35);
+  transform: rotate(var(--slash-angle)) scaleY(1);
+  transform-origin: 50% 0;
+}
+
+.slashes span:nth-child(1) { --x: 52%; --o: 0.22; --i: 0; }
+.slashes span:nth-child(2) { --x: 63%; --o: 0.7; --w: 2px; --i: 1; }
+.slashes span:nth-child(3) { --x: 69%; --o: 0.25; --i: 2; }
+.slashes span:nth-child(4) { --x: 83%; --o: 0.45; --i: 3; }
+.slashes span:nth-child(5) { --x: 95%; --o: 0.18; --i: 4; }
+
+/* 斜めラインより前面に内容を置く */
+.slashes ~ * {
+  position: relative;
+  z-index: 2;
+}
+
+/* 太い1本に光が走る */
+.slashes span:nth-child(2)::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  width: 4px;
+  height: 12%;
+  background: linear-gradient(to bottom, transparent, #fff, transparent);
+  opacity: 0;
+}
+
+/* 右寄せで控えめ（下層ページのヒーロー用） */
+.slashes--side span:nth-child(1) { --x: 74%; }
+.slashes--side span:nth-child(2) { --x: 82%; }
+.slashes--side span:nth-child(3) { --x: 86%; }
+.slashes--side span:nth-child(4) { --x: 94%; }
+.slashes--side span:nth-child(5) { --x: 99%; }
+.slashes--side span:nth-child(2) { --o: 0.45; }
+
+/* スマートフォンでは本数と濃さを抑え、文字の読みやすさを守る */
+@media (max-width: 719px) {
+  .slashes span {
+    opacity: calc(var(--o, 0.35) * 0.55);
+  }
+
+  .slashes span:nth-child(n + 4) {
+    display: none;
+  }
+}
+
+/* ---- Edge : セクション境界の斜めカット --------------------------------- */
+.edge-top,
+.edge-bottom {
+  position: relative;
+}
+
+.edge-top {
+  padding-top: calc(var(--space-section) + var(--edge-h) * 0.6);
+}
+
+.edge-bottom {
+  padding-bottom: calc(var(--space-section) + var(--edge-h) * 0.6);
+}
+
+.edge-top::before,
+.edge-bottom::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: var(--edge-h);
+  pointer-events: none;
+}
+
+.edge-top::before {
+  top: -1px;
+  background: var(--edge-top-color, var(--c-ivory));
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.edge-bottom::after {
+  bottom: -1px;
+  background: var(--edge-bottom-color, var(--c-ivory));
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+.edge-from-white { --edge-top-color: var(--c-white); }
+.edge-from-ivory { --edge-top-color: var(--c-ivory); }
+.edge-to-ivory { --edge-bottom-color: var(--c-ivory); }
+.edge-to-white { --edge-bottom-color: var(--c-white); }
+.edge-to-charcoal { --edge-bottom-color: var(--c-charcoal); }
+.edge-to-ink { --edge-bottom-color: var(--c-ink); }
+
+/* ---- Card accent : ホバーで角に斜めの切れ込みが入る --------------------- */
+.row-list__item::before,
+.insight::before,
+.social-account::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  right: 30px;
+  z-index: 2;
+  width: 1.5px;
+  height: 64px;
+  background: var(--heading);
+  transform: rotate(var(--slash-angle)) scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform var(--dur-lift) var(--ease-sharp);
+  pointer-events: none;
+}
+
+.social-account {
+  position: relative;
+  overflow: hidden;
+}
+
+@media (hover: hover) {
+  .row-list__item:hover::before,
+  .insight:hover::before,
+  .social-account:hover::before {
+    transform: rotate(var(--slash-angle)) scaleY(1);
+  }
+}
+
+/* 画像の上ではアイボリーの線にする */
+.insight::before {
+  background: var(--c-ivory);
+}
+
+/* ---- Button : 斜めの光が走る ------------------------------------------- */
+.button::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: 0;
+  z-index: -1;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, var(--sheen, rgba(255, 255, 255, 0.32)), transparent);
+  transform: skewX(-28deg);
+  translate: -140% 0;
+  transition: translate 0s;
+}
+
+@media (hover: hover) {
+  .button:hover::after {
+    translate: 420% 0;
+    transition: translate 0.75s var(--ease-sharp);
+  }
+}
+
+.theme-ink .button:not(.button--ghost),
+.theme-charcoal .button:not(.button--ghost) {
+  --sheen: rgba(14, 23, 36, 0.14);
+}
+
+/* ---- Media : 画像のスライド（スクロール連動） ----------------------------
+   --progress は js/motion.js が -1（画面上方）〜 1（画面下方）で与える。   */
+[data-parallax] img {
+  translate: 0 calc(var(--progress, 0) * var(--parallax, -60px));
+  scale: 1.22;
+  will-change: translate;
+}
+
+/* ---- Slide strip : 横に流れる画像帯 ------------------------------------ */
+.slide-strip {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  padding-block: var(--space-section);
+}
+
+.slide-strip__row {
+  display: flex;
+  gap: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  width: max-content;
+  margin-left: 50%;
+  translate: calc(-50% + var(--progress, 0) * var(--shift, 12vw)) 0;
+  will-change: translate;
+}
+
+.slide-strip__row--reverse {
+  --shift: -12vw;
+}
+
+.slide-strip__item {
+  flex: none;
+  width: clamp(15rem, 10rem + 22vw, 30rem);
+  aspect-ratio: 16 / 10;
+}
+
+.slide-strip__word {
+  margin: 0;
+  width: max-content;
+  margin-left: 50%;
+  translate: calc(-50% + var(--progress, 0) * -22vw) 0;
+  color: transparent;
+  font-family: var(--ff-serif);
+  font-size: clamp(4rem, 1rem + 12vw, 13rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  -webkit-text-stroke: 1px var(--line-strong);
+  user-select: none;
+  will-change: translate;
+}
+
+/* ==========================================================================
+   出現アニメーション（JS 有効・動きを減らす設定でない場合のみ）
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* 斜めラインが上から鋭く走る */
+  .js .slashes span {
+    transform: rotate(var(--slash-angle)) scaleY(0);
+    transition: transform 1.3s var(--ease-sharp) calc(var(--i, 0) * 110ms + 150ms);
+  }
+
+  .js .slashes.is-inview span {
+    transform: rotate(var(--slash-angle)) scaleY(1);
+  }
+
+  .js .slashes.is-inview span:nth-child(2)::after {
+    animation: slash-travel 5.5s var(--ease-sharp) 1.8s infinite;
+  }
+
+  /* 見出しの罫線と切れ込み */
+  .js .section-head::before {
+    transform: scaleX(0);
+    transition: transform 1.2s var(--ease-sharp);
+  }
+
+  .js .section-head::after {
+    transform: rotate(var(--slash-angle)) scaleY(0);
+    transition: transform 0.6s var(--ease-sharp) 0.5s;
+  }
+
+  .js .section-head > * {
+    clip-path: polygon(0 0, 0 0, -20% 100%, 0 100%);
+    transition: clip-path 1s var(--ease-sharp) 0.25s;
+  }
+
+  .js .section-head.is-inview::before {
+    transform: scaleX(1);
+  }
+
+  .js .section-head.is-inview::after {
+    transform: rotate(var(--slash-angle)) scaleY(1);
+  }
+
+  .js .section-head.is-inview > * {
+    clip-path: polygon(0 0, 130% 0, 100% 100%, 0 100%);
+  }
+
+  /* 画像：斜めのワイプで現れ、拡大から落ち着く */
+  /* 枠ではなく画像側を切り抜く（枠を切ると画面内判定が効かなくなるため） */
+  .js .media {
+    background: transparent;
+  }
+
+  .js .media img {
+    clip-path: polygon(0 0, 0 0, -35% 100%, 0 100%);
+    scale: 1.4;
+    transition:
+      clip-path var(--dur-reveal) var(--ease-sharp),
+      scale 1.8s var(--ease-out);
+  }
+
+  .js .media.is-inview img {
+    clip-path: polygon(0 0, 135% 0, 100% 100%, 0 100%);
+  }
+
+  .js .media.is-inview img {
+    scale: 1.22;
+  }
+
+  .js .insight__media img,
+  .js .insight__media.is-inview img {
+    scale: 1;
+  }
+
+  /* ワイプの縁を走る白い斜線 */
+  .js .media::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    z-index: 2;
+    width: 2px;
+    background: var(--c-ivory);
+    transform: rotate(18deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .js .media.is-inview::after {
+    animation: media-edge var(--dur-reveal) var(--ease-sharp);
+  }
+
+  /* CTA：斜めの面が差し込む */
+  .js .cta-band::before {
+    translate: -100% 0;
+    transition: translate 1.4s var(--ease-sharp);
+  }
+
+  .js .cta-band.is-inview::before {
+    translate: 0 0;
+  }
+}
+
+/* CTA の斜めの面（静止状態） */
+.cta-band::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 62%;
+  background: rgba(255, 255, 255, 0.05);
+  clip-path: polygon(0 0, 100% 0, 62% 100%, 0 100%);
+  pointer-events: none;
+}
+
+@keyframes slash-travel {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  55% { transform: translateY(820%); opacity: 0; }
+  100% { transform: translateY(820%); opacity: 0; }
+}
+
+@keyframes media-edge {
+  0% { left: -5%; opacity: 1; }
+  85% { opacity: 1; }
+  100% { left: 112%; opacity: 0; }
+}
+
+/* 動きを減らす設定：スクロール連動の移動も止める */
+@media (prefers-reduced-motion: reduce) {
+  [data-parallax] img,
+  .slide-strip__row,
+  .slide-strip__word {
+    translate: none;
+  }
+
+  .slide-strip__row,
+  .slide-strip__word {
+    margin-left: 0;
+  }
+
+  .slide-strip__row {
+    padding-inline: var(--gutter);
+  }
+}

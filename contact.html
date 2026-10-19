@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>お問い合わせ｜YUGENQ</title>
+  <meta name="description" content="YUGENQへのお問い合わせフォームです。サービス内容やご利用方法についてのご質問、ご意見・ご要望を受け付けています。内容を確認のうえ、担当者より3営業日以内にご連絡します。">
+
+  <!-- OGP / SNSでシェアされたときの表示 -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="YUGENQ">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:title" content="お問い合わせ｜YUGENQ">
+  <meta property="og:description" content="YUGENQへのお問い合わせフォームです。サービス内容やご利用方法についてのご質問、ご意見・ご要望を受け付けています。内容を確認のうえ、担当者より3営業日以内にご連絡します。">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1578637387939-43c525550085?fm=jpg&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="夕日に照らされる富士山">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0e1724">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <script src="js/core.js" defer></script>
+  <script src="js/site.config.js" defer></script>
+  <script src="js/components/site-header.js" defer></script>
+  <script src="js/components/site-footer.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/motion.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へ移動</a>
+  <yq-header current="contact">
+    <div class="container"><a class="site-logo" href="index.html">YUGENQ</a></div>
+  </yq-header>
+
+  <main id="main">
+    <section class="page-hero theme-ivory" aria-labelledby="page-title">
+      <div class="slashes slashes--side" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="container">
+        <nav class="breadcrumb" aria-label="パンくずリスト">
+          <ol><li><a href="index.html">ホーム</a></li><li aria-current="page">お問い合わせ</li></ol>
+        </nav>
+        <div class="page-hero__inner">
+          <p class="page-hero__en" aria-hidden="true">Contact</p>
+          <div>
+            <h1 class="page-hero__title" id="page-title">お問い合わせ</h1>
+            <p class="page-hero__lead">内容を確認のうえ、担当者より3営業日以内にご連絡します。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section theme-ivory" aria-labelledby="form-title">
+      <div class="container section-grid">
+        <header class="section-head">
+          <p class="section-head__en" aria-hidden="true">Form</p>
+          <h2 class="section-head__title" id="form-title">お問い合わせフォーム</h2>
+        </header>
+        <div class="section-body">
+          <!--
+            Google フォームを埋め込む。フォームのURLは js/site.config.js の contact.googleForm で設定する。
+            未設定のとき・JavaScript が無効のときは、下のメール案内が表示される。
+          -->
+          <div class="gform" data-google-form>
+            <div class="notice">
+              <p class="notice__title">お問い合わせフォームを準備しています</p>
+              <p>お手数ですが、メールでお問い合わせください。</p>
+              <p><a href="mailto:yugenqjp@gmail.com">yugenqjp@gmail.com</a></p>
+            </div>
+          </div>
+          <p class="note">フォームは Google フォームを利用しています。いただいた個人情報は、お問い合わせへの回答にのみ利用します。詳しくは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <yq-footer>
+    <div class="container"><p><small>&copy; YUGENQ</small></p></div>
+  </yq-footer>
+</body>
+</html>

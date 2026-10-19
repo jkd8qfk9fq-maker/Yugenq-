@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice"><defs>
+<filter id="sh" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#0e1724" flood-opacity=".18"/></filter>
+</defs>
+<rect width="1600" height="1000" fill="#e7e2d5"/>
+<g filter="url(#sh)">
+  <rect x="260" y="160" width="620" height="820" fill="#ffffff" transform="rotate(-12 570 570)"/>
+  <rect x="640" y="90" width="620" height="820" fill="#f9f7f1" transform="rotate(6 950 500)"/>
+  <rect x="980" y="240" width="560" height="760" fill="#ffffff" transform="rotate(-4 1260 620)"/>
+</g>
+<g fill="#2f3237" opacity=".18" transform="rotate(6 950 500)">
+  <rect x="720" y="200" width="380" height="6"/><rect x="720" y="242" width="433" height="6"/><rect x="720" y="284" width="396" height="6"/><rect x="720" y="326" width="449" height="6"/><rect x="720" y="368" width="412" height="6"/><rect x="720" y="410" width="465" height="6"/><rect x="720" y="452" width="428" height="6"/><rect x="720" y="494" width="391" height="6"/><rect x="720" y="536" width="444" height="6"/><rect x="720" y="578" width="407" height="6"/><rect x="720" y="620" width="460" height="6"/><rect x="720" y="662" width="423" height="6"/><rect x="720" y="704" width="386" height="6"/><rect x="720" y="746" width="439" height="6"/>
+</g>
+<polygon points="1100,0 1600,0 1600,1000 500,1000" fill="#0e1724" opacity=".06"/>
+<line x1="1100" y1="0" x2="500" y2="1000" stroke="#0e1724" stroke-opacity=".3"/>
+</svg>

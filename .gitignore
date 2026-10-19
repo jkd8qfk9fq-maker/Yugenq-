@@ -1,0 +1,15 @@
+# OS・エディタ
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+.vscode/
+.idea/
+
+# Netlify CLI のローカル設定
+.netlify/
+
+# 依存パッケージ・環境変数（将来ツールを入れた場合）
+node_modules/
+.env
+.env.*
