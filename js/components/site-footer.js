@@ -2,7 +2,7 @@
    <yq-footer base="">
    ========================================================================== */
 (function () {
-  const { esc, href, externalAttrs } = YQ.util;
+  const { esc, href, externalAttrs, externalMark, navLinkAttrs } = YQ.util;
 
   class YqFooter extends HTMLElement {
     connectedCallback() {
@@ -11,10 +11,13 @@
 
       const cfg = YQ.config;
       const base = this.getAttribute("base") || "";
-      const link = (n) => `<li><a href="${href(base, n.href)}">${esc(n.ja || n.label)}</a></li>`;
+      const link = (n) => `<li><a ${navLinkAttrs(base, n)}>${esc(n.ja || n.label)}${n.external ? externalMark() : ""}</a></li>`;
 
       const company = cfg.nav.filter((n) => ["home", "about", "contact"].includes(n.key));
-      const content = cfg.nav.filter((n) => ["services", "encyclopedia", "insights", "social"].includes(n.key));
+      // 事業紹介の下層（日本企業百科事典など）も並べる。親と同じURLの項目は除く
+      const content = cfg.nav
+        .filter((n) => ["services", "insights", "social"].includes(n.key))
+        .flatMap((n) => [n, ...(n.children || []).filter((c) => c.href !== n.href)]);
 
       this.innerHTML = `
         <footer class="site-footer theme-ink">

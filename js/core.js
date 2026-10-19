@@ -26,6 +26,19 @@ YQ.util = {
     return /^https?:/.test(url) ? ' target="_blank" rel="noopener noreferrer"' : "";
   },
 
+  /** 外部サイトへのリンクに添える印（読み上げでは「新しいタブで開きます」と伝える） */
+  externalMark() {
+    return `<svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span>`;
+  },
+
+  /** ナビ項目の href / target 属性を組み立てる */
+  navLinkAttrs(base, item) {
+    if (item.external) {
+      return `href="${YQ.util.esc(item.href)}" target="_blank" rel="noopener"`;
+    }
+    return `href="${YQ.util.href(base, item.href)}"`;
+  },
+
   /** 日付を「2026.10.18」形式に整形 */
   formatDate(iso) {
     const d = new Date(iso);

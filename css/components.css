@@ -1345,3 +1345,216 @@ yq-footer {
 .gform .notice a {
   color: var(--c-ink);
 }
+
+/* ---- Site nav : 事業紹介のドロップダウン ---------------------------------
+   ホバー・キーボード操作（focus-within）・ボタン（aria-expanded）のどれでも開く */
+.site-nav__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.site-nav__link.is-current::after {
+  transform: scaleX(1);
+}
+
+.site-nav__sub-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-left: 2px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--c-charcoal);
+  transition: transform var(--dur) var(--ease), background-color var(--dur-fast) var(--ease);
+}
+
+.site-nav__sub-toggle:hover {
+  background: rgba(14, 23, 36, 0.06);
+}
+
+.site-nav__sub {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: -1.25rem;
+  z-index: 10;
+  min-width: 17rem;
+  margin: 0;
+  padding: var(--space-3);
+  list-style: none;
+  background: var(--c-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lift);
+  opacity: 0;
+  visibility: hidden;
+  translate: 0 -6px;
+  transition: opacity var(--dur) var(--ease), translate var(--dur) var(--ease-out), visibility 0s linear var(--dur);
+}
+
+/* ホバーで開いたメニューへ移動するときに途切れないよう、上に透明な橋をかける */
+.site-nav__sub::before {
+  content: "";
+  position: absolute;
+  inset: -12px 0 auto 0;
+  height: 12px;
+}
+
+.has-sub:hover .site-nav__sub,
+.has-sub:focus-within .site-nav__sub,
+.site-nav__sub-toggle[aria-expanded="true"] + .site-nav__sub {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 0;
+  transition: opacity var(--dur) var(--ease), translate var(--dur) var(--ease-out), visibility 0s;
+}
+
+.has-sub:hover .site-nav__sub-toggle,
+.site-nav__sub-toggle[aria-expanded="true"] {
+  transform: rotate(180deg);
+}
+
+.site-nav__sublink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  color: var(--c-charcoal);
+  font-family: var(--ff-serif);
+  font-size: 0.9375rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.site-nav__sublink:hover,
+.site-nav__sublink[aria-current="page"] {
+  background: var(--c-ivory);
+  color: var(--c-ink);
+}
+
+/* 外部サイトへのリンクの印 */
+.ext-icon {
+  display: inline-block;
+  flex: none;
+  margin-left: 0.35em;
+  vertical-align: 0.05em;
+}
+
+/* ---- Mobile menu : 下層リスト ---- */
+.mobile-menu__children {
+  margin: 0;
+  padding: 0 0 var(--space-3) var(--space-4);
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-menu__list > li > .mobile-menu__link:has(+ .mobile-menu__children) {
+  border-bottom: 0;
+}
+
+.mobile-menu__child {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-left: var(--space-4);
+  border-left: 1px solid var(--line-strong);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+}
+
+.mobile-menu__child[aria-current="page"] {
+  color: var(--heading);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+
+/* ---- 日本企業百科事典への導線 ---------------------------------------- */
+/* 主要な導線用の大きいボタン（スマートフォンでは押しやすい高さと幅にする） */
+.button--large {
+  min-height: 56px;
+  padding: var(--space-4) var(--space-7);
+  font-size: var(--fs-base);
+}
+
+@media (max-width: 719px) {
+  .button-group--stack-sp {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .button-group--stack-sp .button {
+    width: 100%;
+  }
+}
+
+/* 企業理念：最も大きな一文 */
+.statement--philosophy {
+  font-size: var(--fs-3xl);
+  line-height: 1.35;
+}
+
+/* 事業概要：主要サービスの行を強調 */
+.row-list__item--featured {
+  background: var(--c-ink);
+  color: rgba(244, 241, 232, 0.86);
+  --heading: var(--c-ivory);
+  --text-muted: var(--c-mist);
+  --line-strong: rgba(244, 241, 232, 0.4);
+}
+
+.row-list__label {
+  display: inline-block;
+  margin-bottom: var(--space-2);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  color: var(--heading);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+}
+
+/* 掲載項目の出典とリンク */
+.entry__foot {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+/* 業界の一覧（外部サイトへのリンク） */
+.index-grid li:has(.index-grid__link) {
+  padding: 0;
+}
+
+.index-grid__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 52px;
+  padding: var(--space-4) var(--space-5);
+  border-radius: inherit;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease), transform var(--dur-lift) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .index-grid__link:hover {
+    background: var(--c-ink);
+    color: var(--c-ivory);
+    transform: translateY(-3px);
+  }
+
+  .index-grid__link:hover .index-grid__name {
+    color: var(--c-ivory);
+  }
+}

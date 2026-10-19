@@ -4,8 +4,9 @@
    base    : 下層ディレクトリから読み込む場合の相対パス（例: "../"）
    ========================================================================== */
 (function () {
-  const { esc, href, externalAttrs } = YQ.util;
+  const { esc, href, externalAttrs, externalMark, navLinkAttrs } = YQ.util;
   const DESKTOP = window.matchMedia("(min-width: 1080px)");
+  const CHEVRON = `<svg viewBox="0 0 10 6" width="10" height="6" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>`;
 
   class YqHeader extends HTMLElement {
     connectedCallback() {
@@ -16,9 +17,42 @@
       const base = this.getAttribute("base") || "";
       const current = this.getAttribute("current") || "";
       const cur = (key) => (key === current ? ' aria-current="page"' : "");
+      // 下層に現在ページを含む親項目には、印（is-current）だけを付ける
+      const inSection = (n) => n.key === current || (n.children || []).some((c) => c.key === current);
 
       const primary = cfg.nav.filter((n) => n.key !== "home" && n.key !== "contact");
       const contact = cfg.nav.find((n) => n.key === "contact");
+
+      const subLink = (c, cls) => `
+        <li><a class="${cls}" ${navLinkAttrs(base, c)}${c.external ? "" : cur(c.key)}>${esc(c.ja)}${c.external ? externalMark() : ""}</a></li>`;
+
+      const desktopItem = (n) => {
+        if (!n.children) {
+          return `<li class="site-nav__item"><a class="site-nav__link" href="${href(base, n.href)}"${cur(n.key)}>${esc(n.ja)}</a></li>`;
+        }
+        const id = `site-nav-sub-${n.key}`;
+        return `
+          <li class="site-nav__item has-sub">
+            <a class="site-nav__link${inSection(n) ? " is-current" : ""}" href="${href(base, n.href)}">${esc(n.ja)}</a>
+            <button class="site-nav__sub-toggle" type="button" aria-expanded="false" aria-controls="${id}">
+              ${CHEVRON}<span class="visually-hidden">${esc(n.ja)}のメニューを開く</span>
+            </button>
+            <ul class="site-nav__sub" id="${id}">
+              ${n.children.map((c) => subLink(c, "site-nav__sublink")).join("")}
+            </ul>
+          </li>`;
+      };
+
+      const mobileItem = (n) => `
+        <li>
+          <a class="mobile-menu__link" href="${href(base, n.href)}"${cur(n.key)}>
+            <span class="mobile-menu__en">${esc(n.label)}</span>
+            <span class="mobile-menu__ja">${esc(n.ja)}</span>
+          </a>
+          ${n.children ? `<ul class="mobile-menu__children">${n.children
+            .filter((c) => c.href !== n.href)
+            .map((c) => subLink(c, "mobile-menu__child")).join("")}</ul>` : ""}
+        </li>`;
 
       this.innerHTML = `
         <header class="site-header">
@@ -27,9 +61,7 @@
 
             <nav class="site-nav" aria-label="メインメニュー">
               <ul class="site-nav__list">
-                ${primary.map((n) => `
-                  <li><a class="site-nav__link" href="${href(base, n.href)}"${cur(n.key)}>${esc(n.label)}</a></li>
-                `).join("")}
+                ${primary.map(desktopItem).join("")}
               </ul>
               <a class="button button--small" href="${href(base, contact.href)}"${cur("contact")}>${esc(contact.ja)}</a>
             </nav>
@@ -45,14 +77,7 @@
           <div class="container">
             <nav aria-label="メインメニュー（モバイル）">
               <ul class="mobile-menu__list">
-                ${cfg.nav.map((n) => `
-                  <li>
-                    <a class="mobile-menu__link" href="${href(base, n.href)}"${cur(n.key)}>
-                      <span class="mobile-menu__en">${esc(n.label)}</span>
-                      <span class="mobile-menu__ja">${esc(n.ja)}</span>
-                    </a>
-                  </li>
-                `).join("")}
+                ${cfg.nav.map(mobileItem).join("")}
               </ul>
             </nav>
             <p class="mobile-menu__sub">公式SNS</p>
@@ -75,6 +100,37 @@
       });
       this.addEventListener("keydown", (e) => this.onKeydown(e));
       DESKTOP.addEventListener("change", (e) => e.matches && this.close(false));
+      this.setupSubmenus();
+    }
+
+    /* PC のドロップダウン：ホバーでも開くが、ボタン（クリック・Enter）でも開閉できる */
+    setupSubmenus() {
+      const items = this.querySelectorAll(".has-sub");
+      const closeAll = (except) => items.forEach((item) => {
+        if (item !== except) item.querySelector(".site-nav__sub-toggle").setAttribute("aria-expanded", "false");
+      });
+
+      items.forEach((item) => {
+        const btn = item.querySelector(".site-nav__sub-toggle");
+        btn.addEventListener("click", () => {
+          const open = btn.getAttribute("aria-expanded") !== "true";
+          closeAll(item);
+          btn.setAttribute("aria-expanded", String(open));
+        });
+        item.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") {
+            btn.setAttribute("aria-expanded", "false");
+            btn.focus();
+          }
+        });
+        item.addEventListener("focusout", (e) => {
+          if (!item.contains(e.relatedTarget)) btn.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".has-sub")) closeAll();
+      });
     }
 
     get isOpen() {

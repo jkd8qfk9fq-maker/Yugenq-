@@ -382,3 +382,99 @@
     padding-inline: var(--gutter);
   }
 }
+
+/* ==========================================================================
+   背景レイヤー：文字のセクションでも、スクロールに合わせて背景が動く
+   --------------------------------------------------------------------------
+   js/motion.js が各セクションの先頭に .bg-layer を差し込み、
+   セクションの --progress（-1〜1）で 3 つの層を別々の速さで動かす。
+     __glow  … 大きな光のにじみ（ゆっくり縦に）
+     __lines … 鋭い斜線の地紋（斜めに流れる）
+     __word  … 章名の大きな英字の輪郭（横に流れる）
+   ========================================================================== */
+.has-bg-layer {
+  position: relative;
+  overflow: clip; /* hidden と違い、見出しの sticky を壊さない */
+  isolation: isolate;
+  --bg-line: rgba(14, 23, 36, 0.055);
+  --bg-glow: rgba(14, 23, 36, 0.06);
+  --bg-word: rgba(14, 23, 36, 0.09);
+}
+
+.has-bg-layer.theme-ink {
+  --bg-line: rgba(244, 241, 232, 0.06);
+  --bg-glow: rgba(120, 150, 190, 0.16);
+  --bg-word: rgba(244, 241, 232, 0.1);
+}
+
+.has-bg-layer.theme-charcoal {
+  --bg-line: rgba(255, 255, 255, 0.06);
+  --bg-glow: rgba(255, 255, 255, 0.07);
+  --bg-word: rgba(255, 255, 255, 0.1);
+}
+
+.has-bg-layer > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-layer > span {
+  position: absolute;
+  display: block;
+  will-change: translate;
+}
+
+.bg-layer__glow {
+  top: 10%;
+  left: -15%;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--bg-glow) 0%, transparent 62%);
+  translate: calc(var(--progress, 0) * 8vw) calc(var(--progress, 0) * 220px);
+}
+
+.bg-layer__lines {
+  inset: -40% -20%;
+  background: repeating-linear-gradient(
+    calc(90deg + var(--slash-angle)),
+    transparent 0 139px,
+    var(--bg-line) 139px 140px
+  );
+  translate: calc(var(--progress, 0) * -90px) calc(var(--progress, 0) * 160px);
+}
+
+.bg-layer__word {
+  right: -4vw;
+  bottom: 6%;
+  color: transparent;
+  font-family: var(--ff-serif);
+  font-size: clamp(5rem, 1rem + 14vw, 17rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  -webkit-text-stroke: 1px var(--bg-word);
+  user-select: none;
+  translate: calc(var(--progress, 0) * 22vw) 0;
+}
+
+/* ページ冒頭は英字を上側に置き、見出しと重ならない位置で流す */
+.page-hero .bg-layer__word {
+  top: 12%;
+  bottom: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-layer > span {
+    translate: none;
+  }
+}

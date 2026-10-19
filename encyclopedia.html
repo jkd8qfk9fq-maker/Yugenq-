@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>日本企業百科事典｜企業の沿革と事業を一社一項目で記録｜YUGENQ</title>
-  <meta name="description" content="日本企業百科事典は、YUGENQが編纂する日本企業の事典です。上場・非上場を問わず、企業の沿革・事業・財務の要点を出典とともに共通の書式で記録し、業種別の索引から比べて読めます。">
+  <meta name="description" content="日本企業百科事典は、YUGENQが企画・開発・運営する日本の上場企業の事典です。何をしている会社なのかを、ビジネス・財務・沿革の3つの軸から、有価証券報告書などの一次資料にもとづいてわかりやすく解説します。">
   <link rel="canonical" href="https://yugenqjp.netlify.app/encyclopedia.html">
 
   <!-- OGP / SNSでシェアされたときの表示 -->
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="YUGENQ">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:title" content="日本企業百科事典｜企業の沿革と事業を一社一項目で記録｜YUGENQ">
-  <meta property="og:description" content="日本企業百科事典は、YUGENQが編纂する日本企業の事典です。上場・非上場を問わず、企業の沿革・事業・財務の要点を出典とともに共通の書式で記録し、業種別の索引から比べて読めます。">
+  <meta property="og:description" content="日本企業百科事典は、YUGENQが企画・開発・運営する日本の上場企業の事典です。何をしている会社なのかを、ビジネス・財務・沿革の3つの軸から、有価証券報告書などの一次資料にもとづいてわかりやすく解説します。">
   <meta property="og:image" content="https://images.unsplash.com/photo-1704391904759-11e28009335d?fm=jpg&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -82,7 +82,10 @@
           <p class="page-hero__en" aria-hidden="true">Encyclopedia</p>
           <div>
             <h1 class="page-hero__title" id="page-title">日本企業百科事典</h1>
-            <p class="page-hero__lead">一社に、一項目を。日本の企業の成り立ちと現在を、同じ書式で記録する事典です。</p>
+            <p class="page-hero__lead">企業を知ることは、日本経済を知ること。日本の上場企業を、ビジネス・財務・沿革の3つの軸から、一次資料にもとづいてわかりやすく解説する事典です。</p>
+            <div class="button-group button-group--stack-sp page-hero__nav">
+              <a class="button button--large" href="https://nihonkigyohyakka.yugenqjp.workers.dev/" target="_blank" rel="noopener">日本企業百科事典を見る<svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a>
+            </div>
           </div>
         </div>
         <div class="media media--wide page-visual" data-parallax="-60">
@@ -101,34 +104,38 @@
         <div class="section-body">
           <div class="feature-split">
             <div class="stack">
-              <p class="statement statement--sm">比べて読める、<br>企業の記録。</p>
+              <p class="statement statement--sm">何をしている会社かが、<br>わかる事典。</p>
               <div class="body-text">
-                <p>企業の情報は、決算資料、ウェブサイト、報道とさまざまな場所に散らばり、書き方もそれぞれ異なります。日本企業百科事典は、それらを一つの書式に整え、編集部が出典を確かめたうえで記述します。</p>
-                <p>見出し語、読み、業種、設立年、本社所在地、市場区分といった共通の項目を揃えることで、業種や規模の異なる企業も同じ物差しで読むことができます。</p>
+                <p>企業の情報は、決算資料やウェブサイト、報道など、さまざまな場所に散らばっています。日本企業百科事典は、有価証券報告書やEDINETなどの公開資料をもとに、一社ごとに「何をしている会社か」「どうやって儲けているか」「いまの形になるまで」を整理して解説します。</p>
+                <p>専門用語には用語集を用意し、業界ごとに企業を見比べることもできます。YUGENQの理念「知っているから、日本が強くなる」を、もっとも直接的にかたちにしたサービスです。</p>
               </div>
             </div>
 
-            <article class="entry" aria-label="項目の記載例">
-              <p class="entry__badge">項目の記載例</p>
+            <!-- Entry component : 日本企業百科事典の掲載項目（https://nihonkigyohyakka.yugenqjp.workers.dev/companies/toyota/ より） -->
+            <article class="entry" aria-labelledby="entry-toyota">
+              <p class="entry__badge">掲載項目から</p>
               <header class="entry__head">
-                <h3 class="entry__word">見本精機<wbr>株式会社</h3>
-                <p class="entry__reading">みほんせいき</p>
+                <h3 class="entry__word" id="entry-toyota">トヨタ自動車</h3>
+                <p class="entry__reading">トヨタ自動車株式会社</p>
               </header>
               <dl class="entry__meta">
-                <div><dt>業種</dt><dd>精密機器</dd></div>
-                <div><dt>設立</dt><dd>1962年</dd></div>
-                <div><dt>本社</dt><dd>東京都</dd></div>
-                <div><dt>市場区分</dt><dd>プライム</dd></div>
+                <div><dt>証券コード</dt><dd>7203</dd></div>
+                <div><dt>上場市場</dt><dd>東証プライム・名証プレミア</dd></div>
+                <div><dt>業界</dt><dd>自動車・金融</dd></div>
+                <div><dt>創立</dt><dd>1937年</dd></div>
+                <div><dt>営業収益</dt><dd>50兆6,850億円</dd></div>
               </dl>
               <p class="entry__body">
-                光学部品の受託製造から出発し、現在は産業用計測機器を主力とする。売上高の約六割を海外が占め、2010年代以降は半導体製造装置向けの比率を高めている。
+                トヨタやレクサス、ダイハツのブランドで自動車を設計・製造して世界で販売し、車のローンやリースも提供する会社。
               </p>
-              <ul class="entry__related" aria-label="関連項目">
-                <li class="tag">精密機器</li>
-                <li class="tag">計測機器</li>
-                <li class="tag">海外売上比率</li>
+              <ul class="entry__related" aria-label="業界">
+                <li class="tag">自動車</li>
+                <li class="tag">金融</li>
               </ul>
-              <p class="note entry__note">※ 企業名・数値はすべて架空の記載例です。</p>
+              <div class="entry__foot">
+                <p class="note">営業収益は2026年3月期・連結。出典：日本企業百科事典「トヨタ自動車」（最終更新 2026年9月14日）</p>
+                <a class="text-link" href="https://nihonkigyohyakka.yugenqjp.workers.dev/companies/toyota/" target="_blank" rel="noopener">この企業を読む<svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a>
+              </div>
             </article>
           </div>
         </div>
@@ -166,22 +173,21 @@
       <div class="container section-grid">
         <header class="section-head">
           <p class="section-head__en" aria-hidden="true">Index</p>
-          <h2 class="section-head__title" id="index-title">業種から探す</h2>
+          <h2 class="section-head__title" id="index-title">業界から探す</h2>
         </header>
         <div class="section-body">
-          <p class="body-text">業種別の索引は、公開にあわせて順次ご利用いただけるようになります。公開した業種はここからリンクします。</p>
-          <!-- 公開時は index-grid__name を <a> に置き換え、status を項目数などに変更する -->
+          <p class="body-text">日本企業百科事典では、業界ごとに企業を一覧できます。主な業界は次のとおりです。</p>
           <ul class="index-grid">
-            <li><span class="index-grid__name">製造業</span><span class="index-grid__status">準備中</span></li>
-            <li><span class="index-grid__name">金融・保険</span><span class="index-grid__status">準備中</span></li>
-            <li><span class="index-grid__name">情報・通信</span><span class="index-grid__status">準備中</span></li>
-            <li><span class="index-grid__name">卸売・小売</span><span class="index-grid__status">準備中</span></li>
-            <li><span class="index-grid__name">建設・不動産</span><span class="index-grid__status">準備中</span></li>
-            <li><span class="index-grid__name">運輸・物流</span><span class="index-grid__status">準備中</span></li>
-            <li><span class="index-grid__name">電気・ガス</span><span class="index-grid__status">準備中</span></li>
-            <li><span class="index-grid__name">医薬・ヘルスケア</span><span class="index-grid__status">準備中</span></li>
-            <li><span class="index-grid__name">サービス</span><span class="index-grid__status">準備中</span></li>
+            <li><a class="index-grid__link" href="https://nihonkigyohyakka.yugenqjp.workers.dev/industries/electronics/" target="_blank" rel="noopener"><span class="index-grid__name">電機・エレクトロニクス</span><svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a></li>
+            <li><a class="index-grid__link" href="https://nihonkigyohyakka.yugenqjp.workers.dev/industries/it/" target="_blank" rel="noopener"><span class="index-grid__name">IT・ソフトウェア</span><svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a></li>
+            <li><a class="index-grid__link" href="https://nihonkigyohyakka.yugenqjp.workers.dev/industries/finance/" target="_blank" rel="noopener"><span class="index-grid__name">金融</span><svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a></li>
+            <li><a class="index-grid__link" href="https://nihonkigyohyakka.yugenqjp.workers.dev/industries/semiconductors/" target="_blank" rel="noopener"><span class="index-grid__name">半導体</span><svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a></li>
+            <li><a class="index-grid__link" href="https://nihonkigyohyakka.yugenqjp.workers.dev/industries/real-estate/" target="_blank" rel="noopener"><span class="index-grid__name">不動産</span><svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a></li>
+            <li><a class="index-grid__link" href="https://nihonkigyohyakka.yugenqjp.workers.dev/industries/construction/" target="_blank" rel="noopener"><span class="index-grid__name">建設</span><svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a></li>
+            <li><a class="index-grid__link" href="https://nihonkigyohyakka.yugenqjp.workers.dev/industries/retail/" target="_blank" rel="noopener"><span class="index-grid__name">小売</span><svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a></li>
+            <li><a class="index-grid__link" href="https://nihonkigyohyakka.yugenqjp.workers.dev/industries/chemicals/" target="_blank" rel="noopener"><span class="index-grid__name">化学</span><svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a></li>
           </ul>
+          <div><a class="text-link" href="https://nihonkigyohyakka.yugenqjp.workers.dev/industries/" target="_blank" rel="noopener">すべての業界を見る<svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a></div>
         </div>
       </div>
     </section>
@@ -190,10 +196,10 @@
       <div class="slashes slashes--side" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
       <div class="container cta-band__inner">
         <div>
-          <h2 class="cta-band__title" id="cta-title">日本企業百科事典についてのお問い合わせ</h2>
-          <p class="cta-band__text">ご利用方法についてのご質問や、ご意見・ご要望を受け付けています。</p>
+          <h2 class="cta-band__title" id="cta-title">日本企業百科事典で、企業を調べる</h2>
+          <p class="cta-band__text">企業名・証券コード・業界から検索できます。ご意見・ご要望は<a href="contact.html">お問い合わせ</a>から。</p>
         </div>
-        <a class="button" href="contact.html">お問い合わせ</a>
+        <a class="button button--large" href="https://nihonkigyohyakka.yugenqjp.workers.dev/" target="_blank" rel="noopener">日本企業百科事典を見る<svg class="ext-icon" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M4 1.5h6.5V8M10.5 1.5 1.5 10.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="visually-hidden">（新しいタブで開きます）</span></a>
       </div>
     </section>
   </main>

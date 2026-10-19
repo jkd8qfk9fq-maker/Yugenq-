@@ -7,13 +7,24 @@ window.YQ = window.YQ || {};
 
 YQ.config = {
   siteName: "YUGENQ",
-  statement: "日本企業の情報を正確に記録し、市場の動きを読み解く。",
+  statement: "知っているから、日本が強くなる。",
+
+  // 日本企業百科事典（外部サイト）
+  encyclopediaUrl: "https://nihonkigyohyakka.yugenqjp.workers.dev/",
 
   // グローバルナビゲーション（表示順）
+  // children を持つ項目は、PC ではドロップダウン、スマートフォンでは下層リストとして表示される。
+  // external: true の項目は新しいタブで開く。
   nav: [
     { key: "home",         label: "Home",         ja: "ホーム",           href: "index.html" },
-    { key: "services",     label: "Services",     ja: "サービス",         href: "services.html" },
-    { key: "encyclopedia", label: "Encyclopedia", ja: "日本企業百科事典", href: "encyclopedia.html" },
+    {
+      key: "services", label: "Business", ja: "事業紹介", href: "services.html",
+      children: [
+        { key: "services",     ja: "事業一覧",                 href: "services.html" },
+        { key: "encyclopedia", ja: "日本企業百科事典について", href: "encyclopedia.html" },
+        { key: "encyclopedia-app", ja: "日本企業百科事典を見る", href: "https://nihonkigyohyakka.yugenqjp.workers.dev/", external: true }
+      ]
+    },
     { key: "insights",     label: "Insights",     ja: "インサイト",       href: "insights.html" },
     { key: "social",       label: "Social",       ja: "公式SNS",          href: "social.html" },
     { key: "about",        label: "About",        ja: "企業情報",         href: "about.html" },
