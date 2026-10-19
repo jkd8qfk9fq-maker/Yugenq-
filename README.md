@@ -38,16 +38,15 @@ GitHub リポジトリ [jkd8qfk9fq-maker/Yugenq-](https://github.com/jkd8qfk9fq-
 - 独自ドメインを使う場合は「Domain management」で設定する。ドメインが決まったら、SEO の「公開ドメインが決まったら追加するもの」も対応する
 - 存在しないURLにアクセスされたときは `404.html` が表示される
 - `README.md`・`CLAUDE.md`・`netlify.toml` は公開サイトからは見えない（404 を返す）
+- 削除したインサイトのページ（`/insights.html`・`/insights/…`）へのアクセスはトップページへ転送する
 
 ## ディレクトリ構成
 
 ```
 yugenq-site/
-├─ index.html              HOME（理念・事業概要・百科事典・インサイト・ブランドメッセージ）
-├─ services.html           SERVICES（一覧＋詳細アンカー）
+├─ index.html              HOME（理念・事業概要・日本企業百科事典・ブランドメッセージ）
+├─ services.html           事業紹介（日本企業百科事典・デジタルサービス）
 ├─ encyclopedia.html       日本企業百科事典
-├─ insights.html           INSIGHTS（カテゴリ絞り込み付き一覧）
-├─ insights/article-template.html  記事テンプレート（下層ディレクトリの例）
 ├─ social.html             SOCIAL（公式アカウント＋投稿フィード）
 ├─ about.html              ABOUT（ビジョン・運営方針・会社概要）
 ├─ contact.html            CONTACT（問い合わせフォーム）
@@ -70,7 +69,7 @@ yugenq-site/
 │  │  ├─ site-footer.js    <yq-footer>
 │  │  └─ social.js         <yq-social-accounts> / <yq-social-feed>
 │  ├─ data/social-posts.js SNS投稿のサンプルデータ
-│  ├─ main.js              インサイト絞り込み、Google フォームの埋め込み
+│  ├─ main.js              Google フォームの埋め込み
 │  └─ motion.js            スクロール演出（出現判定・スクロール連動）
 └─ assets/
    ├─ favicon.svg
@@ -107,7 +106,6 @@ yugenq-site/
 | --- | --- |
 | ナビ項目・ページ | 新しいHTMLを既存ページから複製し、`js/site.config.js` の `nav` に1行追加 |
 | サービス | `services.html` の一覧に `row-list__item` を、詳細に `<article class="detail" id="…">` を追加 |
-| インサイト記事 | `insights/article-template.html` を複製し、`insights.html` のリスト先頭に `<li data-category="…">` を追加 |
 | SNSアカウント | `js/site.config.js` の `social` に追加（ヘッダー・フッター・SOCIALページに自動反映） |
 | 百科事典の業種索引 | `encyclopedia.html` の `index-grid` の項目をリンクに差し替え |
 
@@ -162,7 +160,7 @@ JSONの形：`[{ "id", "platform", "date", "text", "url", "image"?, "imageAlt"? 
 
 - 会社概要（`about.html`）の社名・所在地などは仮の記載です
 - SNSアカウント：X（@YUGENQjp）と Instagram（@yugenqjp）を設定済み。YouTube は `url` が空のため非表示。アカウントを作ったら `js/site.config.js` の `social` に `url` と `handle` を入れると表示される
-- コピー全般、インサイト記事、SNS投稿、事典の記載例はすべてサンプルです
+- コピー全般とSNS投稿はサンプルです（事典の掲載例は日本企業百科事典の実在項目「トヨタ自動車」）
 - 写真は Unsplash のものを仮に使用しています。自社撮影の写真などに差し替える場合は、`<img>` の `src`・`srcset`・`alt` を更新してください（装飾目的なら `alt=""` のまま）
 - プライバシーポリシーの本文
 - お問い合わせ用 Google フォームのURL（上記「フォームの作り方」を参照）
@@ -179,7 +177,7 @@ JSONの形：`[{ "id", "platform", "date", "text", "url", "image"?, "imageAlt"? 
 - OGP / Twitter カード：SNSでシェアされたときのタイトル・説明・画像（1200×630）
 - 見出し：各ページ `h1` は1つ。見出しの階層は飛ばさない。英字の補足（Corporate data など）は見出しの外に置き、見出しの文言を日本語だけにしている
 - 画像の `alt`：内容を伝える写真には説明を付け、記事カードの写真のように隣の見出しと同じ内容になるものは `alt=""`（読み上げの重複を避けるため）
-- `noindex`：本文が未記入のプライバシーポリシーと、記事テンプレート（サンプル）。本番の内容に差し替えたら外す
+- `noindex`：本文が未記入のプライバシーポリシー。本番の内容に差し替えたら外す
 - `robots.txt`：すべてのページのクロールを許可
 
 ページを追加するときは、既存ページの `<head>` を複製し、`title`・`description`・`og:title`・`og:description`・`og:image` をそのページの内容に書き換えてください。
@@ -187,8 +185,8 @@ JSONの形：`[{ "id", "platform", "date", "text", "url", "image"?, "imageAlt"? 
 ### 公開URLにもとづく設定（https://yugenqjp.netlify.app）
 
 - `<link rel="canonical">` と `og:url`：各ページの正式なURL。Netlify では `/services` と `/services.html` のどちらでも表示されるため、`.html` 付きのURLに統一している
-- `sitemap.xml`：検索結果に載せたい7ページ（noindex のプライバシーポリシーと記事テンプレートは除外）。`robots.txt` にも場所を記載
-- 構造化データ（JSON-LD）：トップに組織情報（Organization。X・Instagram へのリンクを含む）とサイト情報（WebSite）、下層ページにパンくずリスト（BreadcrumbList）、記事テンプレートに記事（Article）
+- `sitemap.xml`：検索結果に載せたい6ページ（noindex のプライバシーポリシーは除外）。`robots.txt` にも場所を記載
+- 構造化データ（JSON-LD）：トップに組織情報（Organization。X・Instagram へのリンクを含む）とサイト情報（WebSite）、下層ページにパンくずリスト（BreadcrumbList）
 
 ページを追加・更新したときは、そのページの canonical・og:url・パンくずの JSON-LD を入れ、`sitemap.xml` に URL を追加して `lastmod`（更新日）を書き換えてください。
 
@@ -221,12 +219,5 @@ JSONの形：`[{ "id", "platform", "date", "text", "url", "image"?, "imageAlt"? 
 | HOME 画像帯 | [株価欄の新聞](https://unsplash.com/photos/XrIfY_4cK1w) | Markus Spiske |
 | SERVICES | [東京の街並み](https://unsplash.com/photos/IocJwyqRv3M) | Louie Martinez |
 | 日本企業百科事典 | [古い図書室](https://unsplash.com/photos/A32Uo8lf-JE) | Jonathan Gong |
-| INSIGHTS | [市場チャート](https://unsplash.com/photos/fiXLQXAhCfk) | Maxim Hopman |
 | SOCIAL | [スマートフォンを持つ手](https://unsplash.com/photos/FPt10LXK0cg) | ROBIN WORRALL |
 | ABOUT | [芦ノ湖の鳥居](https://unsplash.com/photos/SBK40fdKbAg) | Tianshu Liu |
-| 記事カード | [グラフを表示するモニター](https://unsplash.com/photos/Wb63zqJ5gnE) | Nicholas Cappello |
-| 記事カード | [都市の高層ビル](https://unsplash.com/photos/LgRnn9x15fE) | Szymon Shields |
-| 記事カード | [書類の束](https://unsplash.com/photos/3CLPBgNuX40) | Camilo Rueda Lopez |
-| 記事カード | [ノートパソコンの分析画面](https://unsplash.com/photos/hpjSkU2UYSU) | Carlos Muza |
-| 記事カード | [電卓と書類](https://unsplash.com/photos/QV5VoI18Ld8) | Berke Citak |
-| 記事カード | [本棚](https://unsplash.com/photos/GxCLXVWAJMY) | Jayanth Muppaneni |

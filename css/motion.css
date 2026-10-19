@@ -123,7 +123,6 @@
 
 /* ---- Card accent : ホバーで角に斜めの切れ込みが入る --------------------- */
 .row-list__item::before,
-.insight::before,
 .social-account::before {
   content: "";
   position: absolute;
@@ -146,16 +145,11 @@
 
 @media (hover: hover) {
   .row-list__item:hover::before,
-  .insight:hover::before,
   .social-account:hover::before {
     transform: rotate(var(--slash-angle)) scaleY(1);
   }
 }
 
-/* 画像の上ではアイボリーの線にする */
-.insight::before {
-  background: var(--c-ivory);
-}
 
 /* ---- Button : 斜めの光が走る ------------------------------------------- */
 .button::after {
@@ -306,10 +300,6 @@
     scale: 1.22;
   }
 
-  .js .insight__media img,
-  .js .insight__media.is-inview img {
-    scale: 1;
-  }
 
   /* ワイプの縁を走る白い斜線 */
   .js .media::after {

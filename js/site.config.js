@@ -25,7 +25,6 @@ YQ.config = {
         { key: "encyclopedia-app", ja: "日本企業百科事典を見る", href: "https://nihonkigyohyakka.yugenqjp.workers.dev/", external: true }
       ]
     },
-    { key: "insights",     label: "Insights",     ja: "インサイト",       href: "insights.html" },
     { key: "social",       label: "Social",       ja: "公式SNS",          href: "social.html" },
     { key: "about",        label: "About",        ja: "企業情報",         href: "about.html" },
     { key: "contact",      label: "Contact",      ja: "お問い合わせ",     href: "contact.html" }
@@ -34,7 +33,7 @@ YQ.config = {
   // 公式SNSアカウント（ヘッダー・フッター・SOCIALページに表示）
   // url が空のアカウントは表示されない。URLを入れると表示される。
   social: [
-    { key: "x",         name: "X",         handle: "@YUGENQjp", url: "https://x.com/YUGENQjp",              note: "レポート公開とお知らせ" },
+    { key: "x",         name: "X",         handle: "@YUGENQjp", url: "https://x.com/YUGENQjp",              note: "日本企業百科事典の更新とお知らせ" },
     { key: "instagram", name: "Instagram", handle: "@yugenqjp", url: "https://www.instagram.com/yugenqjp/", note: "ブランドとチームの記録" },
     { key: "youtube",   name: "YouTube",   handle: "",          url: "",                                    note: "市場解説の動画" }
   ],

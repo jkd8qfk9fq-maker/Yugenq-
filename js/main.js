@@ -1,39 +1,8 @@
 /* ==========================================================================
    ページ機能（該当要素があるページでのみ動作）
-   - [data-filter-group] : インサイト記事のカテゴリ絞り込み
    - [data-google-form]  : お問い合わせ（Google フォーム）の埋め込み
    ========================================================================== */
 (function () {
-  /* ---- カテゴリ絞り込み ----------------------------------------------
-     <div data-filter-group="insights"> 内の .filter__button[data-filter]
-     と、対象リスト [data-filter-target="insights"] > [data-category] を連動。 */
-  document.querySelectorAll("[data-filter-group]").forEach((group) => {
-    const name = group.dataset.filterGroup;
-    const target = document.querySelector(`[data-filter-target="${name}"]`);
-    const status = document.querySelector(`[data-filter-status="${name}"]`);
-    if (!target) return;
-
-    group.hidden = false; // JS 無効時は絞り込みUIを出さない
-
-    group.addEventListener("click", (e) => {
-      const btn = e.target.closest("[data-filter]");
-      if (!btn) return;
-      const value = btn.dataset.filter;
-
-      group.querySelectorAll("[data-filter]").forEach((b) => {
-        b.setAttribute("aria-pressed", String(b === btn));
-      });
-
-      let count = 0;
-      target.querySelectorAll("[data-category]").forEach((item) => {
-        const show = value === "all" || item.dataset.category === value;
-        item.hidden = !show;
-        if (show) count++;
-      });
-
-      if (status) status.textContent = `${count}件の記事を表示しています`;
-    });
-  });
 
   /* ---- お問い合わせ（Google フォーム） --------------------------------
      js/site.config.js の contact.googleForm に設定したURLのフォームを埋め込む。

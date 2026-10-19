@@ -16,7 +16,7 @@
       const company = cfg.nav.filter((n) => ["home", "about", "contact"].includes(n.key));
       // 事業紹介の下層（日本企業百科事典など）も並べる。親と同じURLの項目は除く
       const content = cfg.nav
-        .filter((n) => ["services", "insights", "social"].includes(n.key))
+        .filter((n) => ["services", "social"].includes(n.key))
         .flatMap((n) => [n, ...(n.children || []).filter((c) => c.href !== n.href)]);
 
       this.innerHTML = `

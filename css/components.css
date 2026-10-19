@@ -3,7 +3,7 @@
    1 コンポーネント = 1 ブロック（BEM 風）。追加時はブロック単位で末尾に足す。
    --------------------------------------------------------------------------
    site-header / mobile-menu / site-footer / button / text-link / statement
-   value-list / row-list / entry / insight-list / filter / social-accounts
+   value-list / row-list / entry / filter / social-accounts
    social-feed / info-table / form / cta-band / notice / breadcrumb / tag
    media / lift
    角丸は階層で使い分ける：画像 --radius-lg ＞ カード --radius ＞ 入力欄 --radius-sm
@@ -14,7 +14,6 @@
 .lift,
 .button,
 .row-list__item,
-.insight,
 .social-account,
 .post {
   transition:
@@ -28,7 +27,6 @@
 @media (hover: hover) {
   .lift:hover,
   .row-list__item:hover,
-  .insight:hover,
   .social-account:hover,
   .post:hover {
     transform: translateY(var(--lift));
@@ -44,7 +42,6 @@
 /* キーボード操作でも同じ手応えを返す */
 .lift:focus-within,
 .row-list__item:focus-within,
-.insight:focus-within,
 .social-account:focus-within,
 .post:focus-within {
   transform: translateY(var(--lift));
@@ -544,81 +541,6 @@ yq-header {
   font-size: var(--fs-xs);
   line-height: 1.9;
   letter-spacing: 0.06em;
-}
-
-/* ---- Insight list（記事カード） ---- */
-.insight-list {
-  display: grid;
-  gap: var(--space-5);
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr));
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.insight-list > li {
-  display: flex;
-}
-
-.insight {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  overflow: hidden;
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-rest);
-}
-
-.insight__media {
-  aspect-ratio: 16 / 10;
-  border-radius: 0;
-}
-
-.insight__media img {
-  transition: transform 1.4s var(--ease-out);
-}
-
-@media (hover: hover) {
-  .insight:hover .insight__media img {
-    transform: scale(1.06);
-  }
-}
-
-.insight__body {
-  display: grid;
-  gap: var(--space-3);
-  padding: var(--space-5) var(--space-5) var(--space-6);
-}
-
-.insight__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1) var(--space-4);
-  color: var(--text-muted);
-  font-size: var(--fs-xs);
-}
-
-.insight__title {
-  font-size: var(--fs-md);
-  line-height: var(--lh-heading);
-}
-
-.insight__title a {
-  text-decoration: none;
-}
-
-/* カード全体をクリック可能にする（リンクは見出しのみ＝読み上げを簡潔に） */
-.insight__title a::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-
-.insight__excerpt {
-  font-size: var(--fs-sm);
-  line-height: 1.85;
 }
 
 /* ---- Filter（カテゴリ・媒体の絞り込み） ---- */
