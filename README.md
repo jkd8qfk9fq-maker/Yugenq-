@@ -197,6 +197,7 @@ JSONの形：`[{ "id", "platform", "date", "text", "url", "image"?, "imageAlt"? 
 ### 公開後にやること
 
 1. [Google Search Console](https://search.google.com/search-console) で「URLプレフィックス」に `https://yugenqjp.netlify.app/` を登録する（所有権の確認は「HTMLタグ」方式が簡単。表示された `<meta name="google-site-verification" …>` を index.html の head に追加して公開する）
+   - 所有権の確認には HTML ファイル方式を使っている（`googlef20d9ddbb5815a8d.html`）。**削除すると確認が外れるため、消さないこと**
 2. 「サイトマップ」に `sitemap.xml` を送信する
 3. [リッチリザルト テスト](https://search.google.com/test/rich-results) でトップページと下層ページを確認し、構造化データにエラーがないか見る
 
