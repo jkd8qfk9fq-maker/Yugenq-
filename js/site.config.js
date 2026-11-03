@@ -34,7 +34,7 @@ YQ.config = {
   // url が空のアカウントは表示されない。URLを入れると表示される。
   social: [
     { key: "x",         name: "X",         handle: "@YUGENQjp", url: "https://x.com/YUGENQjp",              note: "日本企業百科事典の更新とお知らせ" },
-    { key: "instagram", name: "Instagram", handle: "@yugenqjp", url: "https://www.instagram.com/yugenqjp/", note: "ブランドとチームの記録" },
+    { key: "instagram", name: "Instagram", handle: "@nihonkigyohyakka", url: "https://www.instagram.com/nihonkigyohyakka/", note: "日本企業百科事典の公式アカウント" },
     { key: "youtube",   name: "YouTube",   handle: "",          url: "",                                    note: "市場解説の動画" }
   ],
 

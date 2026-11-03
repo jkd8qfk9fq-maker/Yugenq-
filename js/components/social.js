@@ -159,6 +159,147 @@
     }
   }
 
+  /* ---- Instagram の最新投稿（自動更新） ----
+     <yq-instagram-feed endpoint="/api/instagram" pages="4">
+     /api/instagram（netlify/functions/instagram.mjs）が Instagram から取った投稿を、
+     4列のグリッドで1ページ8件ずつ表示する。ページは「最新・2・3・4」から選べ、
+     「もっと見る」で次のページへ進む。4ページ目より前の投稿は Instagram 本体へ案内する。
+     各ページは開いたときに初めて取得し、取得済みのページは再取得しない。
+     API が使えない（トークン未設定など）ときは、架空の投稿は出さず、アカウントへのリンクだけを出す。 */
+  class YqInstagramFeed extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.ready) return;
+      this.dataset.ready = "true";
+      this.account = YQ.social.account("instagram");
+      if (!this.account) return;
+      this.endpoint = this.getAttribute("endpoint") || "/api/instagram";
+      this.maxPages = parseInt(this.getAttribute("pages"), 10) || 4;
+      this.pages = [];          // 取得済みのページ（投稿の配列）
+      this.cursors = [null];    // 各ページを取るためのカーソル（1ページ目は null）
+      this.current = 0;
+
+      this.innerHTML = `
+        <div class="ig-feed">
+          <div class="ig-feed__head">
+            <a class="ig-feed__account" href="${esc(this.account.url)}"${externalAttrs(this.account.url)}>
+              <span class="ig-feed__mark" aria-hidden="true"></span>
+              <span>
+                <span class="ig-feed__handle">${esc(this.account.handle)}</span>
+                <span class="ig-feed__note">${esc(this.account.note)}</span>
+              </span>
+            </a>
+            <a class="button button--small" href="${esc(this.account.url)}"${externalAttrs(this.account.url)}>Instagramでフォロー</a>
+          </div>
+          <div class="ig-feed__body" aria-live="polite">${this.skeleton()}</div>
+          <nav class="ig-feed__pager" aria-label="Instagramの投稿のページ" hidden></nav>
+        </div>
+      `;
+      this.body = this.querySelector(".ig-feed__body");
+      this.pager = this.querySelector(".ig-feed__pager");
+      this.show(0);
+    }
+
+    skeleton() {
+      return `<ul class="ig-grid" aria-hidden="true">${"<li class=\"ig-tile ig-tile--loading\"></li>".repeat(8)}</ul>`;
+    }
+
+    async fetchPage(index) {
+      if (this.pages[index]) return this.pages[index];
+      const url = new URL(this.endpoint, location.href);
+      if (this.cursors[index]) url.searchParams.set("after", this.cursors[index]);
+      const res = await fetch(url, { headers: { Accept: "application/json" } });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      this.pages[index] = data.posts || [];
+      this.cursors[index + 1] = data.next || null;
+      return this.pages[index];
+    }
+
+    async show(index) {
+      const first = this.pages.length === 0;
+      if (!this.pages[index]) this.body.innerHTML = this.skeleton();
+      try {
+        const posts = await this.fetchPage(index);
+        this.current = index;
+        if (!posts.length && index === 0) return this.fallback();
+        this.body.innerHTML = `<ul class="ig-grid">${posts.map((p) => this.tile(p)).join("")}</ul>`;
+        this.renderPager();
+        if (!first) this.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (first) this.prefetch();
+      } catch (err) {
+        console.error("[yq-instagram-feed]", err);
+        if (index === 0) this.fallback();
+        else this.body.insertAdjacentHTML("beforeend", `<p class="social-feed__status">投稿を読み込めませんでした。時間をおいて再度お試しください。</p>`);
+      }
+    }
+
+    /** 2ページ目以降を順に先読みし、「最新・2・3・4」をはじめから全部選べるようにする（応答は CDN にキャッシュされる） */
+    async prefetch() {
+      for (let i = 1; i < this.maxPages && this.cursors[i]; i++) {
+        try {
+          await this.fetchPage(i);
+        } catch {
+          break;
+        }
+        this.renderPager();
+      }
+    }
+
+    /** 押せるページ：取得済みのページと、カーソルがある次のページ（最大 maxPages） */
+    available() {
+      let n = 0;
+      while (n < this.maxPages && (this.pages[n] || (n > 0 && this.cursors[n]))) n++;
+      return n;
+    }
+
+    renderPager() {
+      const count = this.available();
+      const hasNext = this.current + 1 < count;
+      this.pager.hidden = false;
+      this.pager.innerHTML = `
+        <ul class="ig-feed__pages">
+          ${Array.from({ length: count }, (_, i) => `
+            <li><button class="filter__button" type="button" data-page="${i}" aria-pressed="${i === this.current}">${i === 0 ? "最新" : i + 1}</button></li>
+          `).join("")}
+        </ul>
+        ${hasNext
+          ? `<button class="button button--ghost button--small" type="button" data-page="${this.current + 1}">もっと見る</button>`
+          : `<a class="text-link" href="${esc(this.account.url)}"${externalAttrs(this.account.url)}>過去の投稿をInstagramで見る</a>`}
+      `;
+      this.pager.querySelectorAll("[data-page]").forEach((btn) => {
+        btn.addEventListener("click", () => this.show(parseInt(btn.dataset.page, 10)));
+      });
+    }
+
+    tile(p) {
+      const kind = p.mediaType === "VIDEO" ? "動画" : p.mediaType === "CAROUSEL_ALBUM" ? "複数枚" : "";
+      const caption = (p.text || "").split("\n")[0];
+      return `
+        <li class="ig-tile">
+          <a href="${esc(p.url)}"${externalAttrs(p.url)} aria-label="${esc(`${formatDate(p.date)}の投稿${kind ? `（${kind}）` : ""}：${caption || "Instagramで見る"}`)}">
+            ${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy" decoding="async">` : ""}
+            ${kind ? `<span class="ig-tile__kind" aria-hidden="true">${kind}</span>` : ""}
+            <span class="ig-tile__caption" aria-hidden="true">
+              <time datetime="${esc(p.date)}">${esc(formatDate(p.date))}</time>
+              ${caption ? `<span>${esc(caption)}</span>` : ""}
+            </span>
+          </a>
+        </li>
+      `;
+    }
+
+    fallback() {
+      this.pager.hidden = true;
+      this.body.innerHTML = `
+        <div class="ig-feed__empty">
+          <p>最新の投稿は Instagram でご覧いただけます。</p>
+          <a class="text-link" href="${esc(this.account.url)}"${externalAttrs(this.account.url)}>${esc(this.account.handle)} を開く</a>
+        </div>
+      `;
+    }
+  }
+
+  customElements.define("yq-instagram-feed", YqInstagramFeed);
   customElements.define("yq-social-accounts", YqSocialAccounts);
   customElements.define("yq-social-feed", YqSocialFeed);
 })();

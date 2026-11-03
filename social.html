@@ -109,19 +109,34 @@
       </div>
     </section>
 
+    <!-- ===== Instagram（最新の投稿を自動表示。netlify/functions/instagram.mjs） ===== -->
+    <section class="section theme-white" aria-labelledby="instagram-title">
+      <div class="container section-grid">
+        <header class="section-head">
+          <p class="section-head__en" aria-hidden="true">Instagram</p>
+          <h2 class="section-head__title" id="instagram-title">Instagramの最新投稿</h2>
+        </header>
+        <div class="section-body">
+          <yq-instagram-feed endpoint="/api/instagram" pages="4">
+            <p class="note"><a href="https://www.instagram.com/nihonkigyohyakka/">Instagram（@nihonkigyohyakka）</a>で最新の投稿をご覧いただけます。</p>
+          </yq-instagram-feed>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== 投稿フィード ===== -->
-    <section class="section theme-white" aria-labelledby="feed-title">
+    <section class="section theme-ivory" aria-labelledby="feed-title">
       <div class="container section-grid">
         <header class="section-head">
           <p class="section-head__en" aria-hidden="true">Latest posts</p>
-          <h2 class="section-head__title" id="feed-title">最新の投稿</h2>
+          <h2 class="section-head__title" id="feed-title">Xの最新投稿</h2>
         </header>
         <div class="section-body">
           <!--
             provider="local" : js/data/social-posts.js のサンプル
             本番例 : <yq-social-feed provider="json" endpoint="/api/social-posts.json" limit="9" filterable>
           -->
-          <yq-social-feed provider="local" limit="9" filterable>
+          <yq-social-feed provider="local" limit="9">
             <p class="note">投稿を表示するには JavaScript を有効にしてください。</p>
           </yq-social-feed>
           <p class="note">※ 表示中の投稿はサンプルです。各SNSとの連携後に実際の投稿が表示されます。</p>
