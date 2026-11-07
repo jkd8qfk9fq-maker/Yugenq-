@@ -50,7 +50,7 @@ yugenq-site/
 ├─ social.html             SOCIAL（公式アカウント＋投稿フィード）
 ├─ about.html              ABOUT（ビジョン・運営方針・会社概要）
 ├─ contact.html            CONTACT（問い合わせフォーム）
-├─ privacy.html            プライバシーポリシー（文面は未記入）
+├─ privacy.html            プライバシーポリシー
 ├─ 404.html                ページが見つからないときの表示（Netlify が自動で使う）
 ├─ netlify.toml            Netlify の公開設定
 ├─ CLAUDE.md               Claude Code 向けの作業ルール
@@ -141,13 +141,20 @@ yugenq-site/
 - フォームの見た目は Google フォームの「テーマをカスタマイズ」で、ヘッダー画像や色（ブルーブラック `#0e1724` など）をサイトに合わせられます。
 - 表示が途中で切れる、または下に余白が出る場合は、`googleFormHeight` の数値を調整してください（スマートフォンでは自動で 1.15 倍の高さになります）。
 
+## アクセス計測（Cloudflare Web Analytics）
+
+Cookie を使わない計測なので、同意のバナーは不要です（プライバシーポリシーに記載済み）。
+
+1. Cloudflare ダッシュボード → Analytics & Logs → Web Analytics → Add a site で `yugenqjp.netlify.app` を登録する
+2. 表示されたスニペットの `"token": "…"` の値を、`js/site.config.js` の `analytics.cloudflareToken` に入れる（公開される値で、秘密ではない）
+3. commit・push して公開すると、数分後から Web Analytics の画面にページビューが出る
+
 ## 差し替えが必要な箇所
 
 - 会社概要（`about.html`）の社名・所在地などは仮の記載です
 - SNSアカウント：X（@YUGENQjp）、Instagram（@nihonkigyohyakka）、YouTube（@日本企業百科事典）を設定済み。変更は `js/site.config.js` の `social` で行う（`url` が空のアカウントは表示されない）
 - コピー全般はサンプルです（事典の掲載例は日本企業百科事典の実在項目「トヨタ自動車」）
 - 写真は Unsplash のものを仮に使用しています。自社撮影の写真などに差し替える場合は、`<img>` の `src`・`srcset`・`alt` を更新してください（装飾目的なら `alt=""` のまま）
-- プライバシーポリシーの本文
 - お問い合わせ用 Google フォームのURL（上記「フォームの作り方」を参照）
 
 ## 今後の発展
@@ -162,7 +169,6 @@ yugenq-site/
 - OGP / Twitter カード：SNSでシェアされたときのタイトル・説明・画像（1200×630）
 - 見出し：各ページ `h1` は1つ。見出しの階層は飛ばさない。英字の補足（Corporate data など）は見出しの外に置き、見出しの文言を日本語だけにしている
 - 画像の `alt`：内容を伝える写真には説明を付け、記事カードの写真のように隣の見出しと同じ内容になるものは `alt=""`（読み上げの重複を避けるため）
-- `noindex`：本文が未記入のプライバシーポリシー。本番の内容に差し替えたら外す
 - `robots.txt`：すべてのページのクロールを許可
 
 ページを追加するときは、既存ページの `<head>` を複製し、`title`・`description`・`og:title`・`og:description`・`og:image` をそのページの内容に書き換えてください。
@@ -170,7 +176,7 @@ yugenq-site/
 ### 公開URLにもとづく設定（https://yugenqjp.netlify.app）
 
 - `<link rel="canonical">` と `og:url`：各ページの正式なURL。Netlify では `/services` と `/services.html` のどちらでも表示されるため、`.html` 付きのURLに統一している
-- `sitemap.xml`：検索結果に載せたい6ページ（noindex のプライバシーポリシーは除外）。`robots.txt` にも場所を記載
+- `sitemap.xml`：検索結果に載せたい7ページ（プライバシーポリシーを含む）。`robots.txt` にも場所を記載
 - 構造化データ（JSON-LD）：トップに組織情報（Organization。X・Instagram・YouTube へのリンクを含む）とサイト情報（WebSite）、下層ページにパンくずリスト（BreadcrumbList）
 
 ページを追加・更新したときは、そのページの canonical・og:url・パンくずの JSON-LD を入れ、`sitemap.xml` に URL を追加して `lastmod`（更新日）を書き換えてください。

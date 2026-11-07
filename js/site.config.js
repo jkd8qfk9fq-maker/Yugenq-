@@ -54,8 +54,24 @@ YQ.config = {
     { label: "運営方針",             href: "about.html#policy" }
   ],
 
-  copyright: "YUGENQ"
+  copyright: "YUGENQ",
+
+  // アクセス計測（Cloudflare Web Analytics。Cookie を使わない）
+  // Cloudflare の Web Analytics でサイトを追加し、表示されたスニペットの token の値を入れると計測が始まる。
+  // 公開される値なので、ここに書いてよい（パスワードやAPIキーではない）。空の間は計測しない。
+  analytics: {
+    cloudflareToken: ""
+  }
 };
+
+// 計測用のスクリプトは、トークンが設定されているときだけ読み込む
+if (YQ.config.analytics.cloudflareToken) {
+  const beacon = document.createElement("script");
+  beacon.defer = true;
+  beacon.src = "https://static.cloudflareinsights.com/beacon.min.js";
+  beacon.dataset.cfBeacon = JSON.stringify({ token: YQ.config.analytics.cloudflareToken });
+  document.head.appendChild(beacon);
+}
 
 // URL が未設定の SNS アカウントは表示しない
 YQ.config.social = YQ.config.social.filter((s) => /^https?:\/\//.test(s.url));
