@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>公式SNS｜最新情報とお知らせ｜YUGENQ</title>
-  <meta name="description" content="YUGENQの公式SNSアカウント（X・Instagram）と最新の投稿。日本企業百科事典の更新情報やお知らせ、ブランドの取り組みを発信しています。">
+  <meta name="description" content="YUGENQの公式SNSアカウント（X・Instagram・YouTube）。日本企業百科事典の更新情報やお知らせ、ブランドの取り組みを発信しています。">
   <link rel="canonical" href="https://yugenqjp.netlify.app/social.html">
 
   <!-- OGP / SNSでシェアされたときの表示 -->
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="YUGENQ">
   <meta property="og:locale" content="ja_JP">
   <meta property="og:title" content="公式SNS｜最新情報とお知らせ｜YUGENQ">
-  <meta property="og:description" content="YUGENQの公式SNSアカウント（X・Instagram）と最新の投稿。日本企業百科事典の更新情報やお知らせ、ブランドの取り組みを発信しています。">
+  <meta property="og:description" content="YUGENQの公式SNSアカウント（X・Instagram・YouTube）。日本企業百科事典の更新情報やお知らせ、ブランドの取り組みを発信しています。">
   <meta property="og:image" content="https://images.unsplash.com/photo-1532356884227-66d7c0e9e4c2?fm=jpg&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -62,8 +62,6 @@
   <script src="js/site.config.js" defer></script>
   <script src="js/components/site-header.js" defer></script>
   <script src="js/components/site-footer.js" defer></script>
-  <!-- SNS : 投稿データ（サンプル）→ コンポーネントの順で読み込む -->
-  <script src="js/data/social-posts.js" defer></script>
   <script src="js/components/social.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/motion.js" defer></script>
@@ -109,40 +107,6 @@
       </div>
     </section>
 
-    <!-- ===== Instagram（最新の投稿を自動表示。netlify/functions/instagram.mjs） ===== -->
-    <section class="section theme-white" aria-labelledby="instagram-title">
-      <div class="container section-grid">
-        <header class="section-head">
-          <p class="section-head__en" aria-hidden="true">Instagram</p>
-          <h2 class="section-head__title" id="instagram-title">Instagramの最新投稿</h2>
-        </header>
-        <div class="section-body">
-          <yq-instagram-feed endpoint="/api/instagram" pages="4">
-            <p class="note"><a href="https://www.instagram.com/nihonkigyohyakka/">Instagram（@nihonkigyohyakka）</a>で最新の投稿をご覧いただけます。</p>
-          </yq-instagram-feed>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 投稿フィード ===== -->
-    <section class="section theme-ivory" aria-labelledby="feed-title">
-      <div class="container section-grid">
-        <header class="section-head">
-          <p class="section-head__en" aria-hidden="true">Latest posts</p>
-          <h2 class="section-head__title" id="feed-title">Xの最新投稿</h2>
-        </header>
-        <div class="section-body">
-          <!--
-            provider="local" : js/data/social-posts.js のサンプル
-            本番例 : <yq-social-feed provider="json" endpoint="/api/social-posts.json" limit="9" filterable>
-          -->
-          <yq-social-feed provider="local" limit="9">
-            <p class="note">投稿を表示するには JavaScript を有効にしてください。</p>
-          </yq-social-feed>
-          <p class="note">※ 表示中の投稿はサンプルです。各SNSとの連携後に実際の投稿が表示されます。</p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <yq-footer>

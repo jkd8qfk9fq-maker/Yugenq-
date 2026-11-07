@@ -1,9 +1,0 @@
-{
-  "name": "yugenq-site",
-  "private": true,
-  "description": "YUGENQ 公式サイト。ページは静的ファイルのまま。依存パッケージは Netlify Functions（netlify/functions）用のみ。",
-  "type": "module",
-  "dependencies": {
-    "@netlify/blobs": "11.1.4"
-  }
-}

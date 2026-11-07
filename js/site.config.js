@@ -35,7 +35,7 @@ YQ.config = {
   social: [
     { key: "x",         name: "X",         handle: "@YUGENQjp", url: "https://x.com/YUGENQjp",              note: "日本企業百科事典の更新とお知らせ" },
     { key: "instagram", name: "Instagram", handle: "@nihonkigyohyakka", url: "https://www.instagram.com/nihonkigyohyakka/", note: "日本企業百科事典の公式アカウント" },
-    { key: "youtube",   name: "YouTube",   handle: "",          url: "",                                    note: "市場解説の動画" }
+    { key: "youtube",   name: "YouTube",   handle: "@日本企業百科事典", url: "https://www.youtube.com/@%E6%97%A5%E6%9C%AC%E4%BC%81%E6%A5%AD%E7%99%BE%E7%A7%91%E4%BA%8B%E5%85%B8", note: "日本企業百科事典の公式チャンネル" }
   ],
 
   // お問い合わせ（Google フォーム）

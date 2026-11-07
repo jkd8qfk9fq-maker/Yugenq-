@@ -67,8 +67,7 @@ yugenq-site/
 │  ├─ components/
 │  │  ├─ site-header.js    <yq-header>
 │  │  ├─ site-footer.js    <yq-footer>
-│  │  └─ social.js         <yq-social-accounts> / <yq-social-feed>
-│  ├─ data/social-posts.js SNS投稿のサンプルデータ
+│  │  └─ social.js         <yq-social-accounts>
 │  ├─ main.js              Google フォームの埋め込み
 │  └─ motion.js            スクロール演出（出現判定・スクロール連動）
 └─ assets/
@@ -111,20 +110,6 @@ yugenq-site/
 
 下層ディレクトリにページを置く場合は `<yq-header base="../">` `<yq-footer base="../">` のように相対パスを指定します。
 
-## SNS投稿の表示（将来の連携）
-
-`<yq-social-feed>` は「プロバイダ」から投稿を受け取って描画します。現在はサンプルデータ（`provider="local"`）です。
-
-SNS各社のAPIはアクセストークンが必要なため、ブラウザから直接呼ばず、自社サーバーやCMSで投稿を集約したJSONを返す構成を想定しています。
-
-```html
-<yq-social-feed provider="json" endpoint="/api/social-posts.json" limit="9" filterable></yq-social-feed>
-```
-
-JSONの形：`[{ "id", "platform", "date", "text", "url", "image"?, "imageAlt"? }]`（`platform` は `site.config.js` の `social[].key` と一致させる）
-
-独自の取得方法は `YQ.social.registerProvider("name", async (opts) => posts)` で追加できます。
-
 ## お問い合わせ（Google フォーム）
 
 お問い合わせは **Google フォーム** で受け付け、お問い合わせページ（`contact.html`）に埋め込んで表示します。回答は Google フォームに保存され、新しい回答があると yugenqjp@gmail.com にメールで通知されます。
@@ -156,35 +141,11 @@ JSONの形：`[{ "id", "platform", "date", "text", "url", "image"?, "imageAlt"? 
 - フォームの見た目は Google フォームの「テーマをカスタマイズ」で、ヘッダー画像や色（ブルーブラック `#0e1724` など）をサイトに合わせられます。
 - 表示が途中で切れる、または下に余白が出る場合は、`googleFormHeight` の数値を調整してください（スマートフォンでは自動で 1.15 倍の高さになります）。
 
-## Instagram の最新投稿を自動で表示する
-
-公式SNSページ（`social.html`）の「Instagramの最新投稿」は、@nihonkigyohyakka の投稿を自動で表示します。
-新しく投稿すると、15分ほどでサイトにも出ます（サイト側の作業は不要）。1ページ8件・4列で表示し、「最新・2・3・4」と「もっと見る」で
-過去の投稿をたどれます。4ページより前は「過去の投稿をInstagramで見る」から Instagram 本体へ案内します。
-
-仕組み：
-
-- `netlify/functions/instagram.mjs`（`/api/instagram`）：Instagram API から投稿を取り、ページ用に整形して返す。結果は Netlify の CDN に15分キャッシュ
-- `netlify/functions/instagram-token-refresh.mjs`：毎週アクセストークンを自動で延長し、Netlify Blobs に保存する（トークンは60日で切れるため）
-- `js/components/social.js` の `<yq-instagram-feed>`：グリッドとページ切り替えの表示
-- アクセストークンはブラウザにもリポジトリにも出さない（リポジトリは公開設定のため）。Netlify の環境変数にだけ入れる
-- 連携が済むまで（またはAPIに問題があるとき）は、架空の投稿は出さず「Instagram でご覧いただけます」というリンクだけを表示する
-
-### 最初に一度だけ必要な設定
-
-1. Instagram アプリで @nihonkigyohyakka を「プロアカウント」（ビジネスまたはクリエイター）に切り替える（設定 → アカウントの種類とツール）
-2. [Meta for Developers](https://developers.facebook.com/) でアプリを作成し、「Instagram」製品の「Instagram ログインによる API 設定」を追加する
-3. 同じ画面の「アクセストークンを生成」で @nihonkigyohyakka を追加してログインし、表示された**長期アクセストークン**をコピーする（権限は `instagram_business_basic`）
-4. Netlify の管理画面 → Site configuration → Environment variables で、キー `INSTAGRAM_ACCESS_TOKEN`、値に 3 のトークンを登録する（Functions で使えるスコープにする）
-5. Netlify で「Deploys → Trigger deploy」を実行して再公開する。公式SNSページに投稿が並べば完了
-
-トークンを作り直したときは、4 の値を更新して再公開してください。自動更新で保存したトークンが使えなくなっていれば、環境変数のトークンに自動で切り替わります。
-
 ## 差し替えが必要な箇所
 
 - 会社概要（`about.html`）の社名・所在地などは仮の記載です
-- SNSアカウント：X（@YUGENQjp）と Instagram（@nihonkigyohyakka）を設定済み。YouTube は `url` が空のため非表示。アカウントを作ったら `js/site.config.js` の `social` に `url` と `handle` を入れると表示される
-- コピー全般とSNS投稿はサンプルです（事典の掲載例は日本企業百科事典の実在項目「トヨタ自動車」）
+- SNSアカウント：X（@YUGENQjp）、Instagram（@nihonkigyohyakka）、YouTube（@日本企業百科事典）を設定済み。変更は `js/site.config.js` の `social` で行う（`url` が空のアカウントは表示されない）
+- コピー全般はサンプルです（事典の掲載例は日本企業百科事典の実在項目「トヨタ自動車」）
 - 写真は Unsplash のものを仮に使用しています。自社撮影の写真などに差し替える場合は、`<img>` の `src`・`srcset`・`alt` を更新してください（装飾目的なら `alt=""` のまま）
 - プライバシーポリシーの本文
 - お問い合わせ用 Google フォームのURL（上記「フォームの作り方」を参照）
@@ -210,7 +171,7 @@ JSONの形：`[{ "id", "platform", "date", "text", "url", "image"?, "imageAlt"? 
 
 - `<link rel="canonical">` と `og:url`：各ページの正式なURL。Netlify では `/services` と `/services.html` のどちらでも表示されるため、`.html` 付きのURLに統一している
 - `sitemap.xml`：検索結果に載せたい6ページ（noindex のプライバシーポリシーは除外）。`robots.txt` にも場所を記載
-- 構造化データ（JSON-LD）：トップに組織情報（Organization。X・Instagram（@nihonkigyohyakka）へのリンクを含む）とサイト情報（WebSite）、下層ページにパンくずリスト（BreadcrumbList）
+- 構造化データ（JSON-LD）：トップに組織情報（Organization。X・Instagram・YouTube へのリンクを含む）とサイト情報（WebSite）、下層ページにパンくずリスト（BreadcrumbList）
 
 ページを追加・更新したときは、そのページの canonical・og:url・パンくずの JSON-LD を入れ、`sitemap.xml` に URL を追加して `lastmod`（更新日）を書き換えてください。
 
