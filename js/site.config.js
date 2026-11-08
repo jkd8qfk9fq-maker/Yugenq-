@@ -22,7 +22,8 @@ YQ.config = {
       children: [
         { key: "services",     ja: "事業一覧",                 href: "services.html" },
         { key: "encyclopedia", ja: "日本企業百科事典について", href: "encyclopedia.html" },
-        { key: "encyclopedia-app", ja: "日本企業百科事典を見る", href: "https://nihonkigyohyakka.yugenqjp.workers.dev/", external: true }
+        { key: "encyclopedia-app", ja: "日本企業百科事典を見る", href: "https://nihonkigyohyakka.yugenqjp.workers.dev/", external: true },
+        { key: "shindan-app",      ja: "企業タイプ診断をはじめる", href: "https://company-type-shindan.yugenqjp.workers.dev/", external: true }
       ]
     },
     { key: "social",       label: "Social",       ja: "公式SNS",          href: "social.html" },

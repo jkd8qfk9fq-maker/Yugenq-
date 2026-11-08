@@ -45,7 +45,7 @@ GitHub リポジトリ [jkd8qfk9fq-maker/Yugenq-](https://github.com/jkd8qfk9fq-
 ```
 yugenq-site/
 ├─ index.html              HOME（理念・事業概要・日本企業百科事典・ブランドメッセージ）
-├─ services.html           事業紹介（日本企業百科事典・デジタルサービス）
+├─ services.html           事業紹介（日本企業百科事典・企業タイプ診断・デジタルサービス）
 ├─ encyclopedia.html       日本企業百科事典
 ├─ social.html             SOCIAL（公式アカウント＋投稿フィード）
 ├─ about.html              ABOUT（ビジョン・運営方針・会社概要）
