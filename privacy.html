@@ -62,6 +62,7 @@
   <script src="js/components/site-header.js" defer></script>
   <script src="js/components/site-footer.js" defer></script>
   <script src="js/motion.js" defer></script>
+  <script src="https://shindan.kigyo-hyakka.com/shared/consent.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">本文へ移動</a>
@@ -91,13 +92,14 @@
         <div class="article">
           <div class="article__body">
             <p>YUGENQ（以下「運営者」）は、このウェブサイト（以下「本サイト」）で取り扱う利用者の情報について、次のとおり定めます。</p>
-            <p class="note">制定日：2026年11月8日</p>
+            <p class="note">制定日：2026年11月8日　改定日：2026年11月17日</p>
 
             <h2>1. 取得する情報</h2>
             <p>本サイトでは、次の情報を取得することがあります。</p>
             <ul>
               <li>お問い合わせフォームに入力された情報（お問い合わせの種類、お名前、メールアドレス、電話番号、会社名・団体名、お問い合わせ内容など）</li>
               <li>アクセスの計測による統計情報（閲覧されたページ、参照元、ブラウザの種類など。Cookie は使いません）</li>
+              <li>同意いただいた場合に限り、Google アナリティクスによる利用状況の統計（下の 3 を参照）</li>
               <li>本サイトの配信サービスが記録するアクセスの記録（IPアドレス、アクセス日時など）</li>
             </ul>
 
@@ -112,7 +114,13 @@
             <h2>3. 利用している外部サービス</h2>
             <ul>
               <li>お問い合わせは、Google LLC が提供する Google フォームで受け付けています。送信された内容は Google のサービス上に保存されます。</li>
-              <li>アクセスの計測には、Cloudflare, Inc. の Cloudflare Web Analytics を使うことがあります。Cookie を使わず、ブラウザに識別子を保存しない方式です。</li>
+              <li>アクセスの計測には、Cloudflare, Inc. の Cloudflare Web Analytics を使います。Cookie を使わず、ブラウザに識別子を保存しない方式のため、すべての閲覧で行います。</li>
+              <li>
+                利用者が「同意する」を選んだ場合にだけ、Google LLC の Google アナリティクスを使って、利用状況（利用者数、閲覧したページ、どこから来たか、使っている端末など）の統計を取ります。目的は、本サイトと関連サービスの改善です。
+                送信先は Google LLC で、送信される情報は、Cookie（_ga など）に保存されるブラウザごとのランダムなID、閲覧したページのアドレス（パスと、流入元を示す utm_ で始まる値のみ）、参照元、ページの題名、端末・ブラウザの種類、画面の大きさ、言語、IPアドレスから推定されるおおよその地域です。広告のための利用（Google シグナル、広告のパーソナライズ）は行いません。
+                同意の選択は Cookie（yugenq_consent_ga）に1年間保存し、ページ下の「閲覧統計の設定」からいつでも取り消せます（Google アナリティクスの Cookie も消します）。同意しなくても、本サイトのすべての機能を使えます。
+                Google が提供する<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener noreferrer">オプトアウト アドオン</a>でも止められます。Google による情報の扱いは<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener noreferrer">こちら</a>をご覧ください。
+              </li>
               <li>本サイトは Netlify, Inc. のサービスで配信しています。表示のため、Google Fonts（文字の表示）と Unsplash（写真）からデータを読み込みます。これらのサービスには、通常の通信としてIPアドレスなどが送られます。</li>
             </ul>
             <p>現在、本サイトに広告は掲載していません。広告を掲載する場合は、使う広告サービスと扱う情報をこのページに記載してから始めます。</p>

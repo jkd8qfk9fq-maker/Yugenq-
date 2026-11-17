@@ -636,6 +636,19 @@ yq-header {
   text-decoration: underline;
 }
 
+/* 閲覧統計の設定（共有スクリプトが、Google アナリティクスの選択があるときだけ表示する） */
+.social-inline__button {
+  font: inherit;
+  font-size: var(--fs-sm);
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.social-inline__button[hidden] { display: none; }
+.social-inline__button:hover { text-decoration: underline; }
+
 /* ---- Info table（会社概要などの項目表） ---- */
 .info-table {
   margin: 0;

@@ -47,6 +47,7 @@
             <div class="site-footer__bottom">
               <ul class="social-inline">
                 ${cfg.legal.map((l) => `<li><a href="${href(base, l.href)}">${esc(l.label)}</a></li>`).join("")}
+                <li><button type="button" class="social-inline__button" data-yugenq-consent-settings hidden>閲覧統計の設定</button></li>
               </ul>
               <p><small>&copy; ${new Date().getFullYear()} ${esc(cfg.copyright)}</small></p>
             </div>
