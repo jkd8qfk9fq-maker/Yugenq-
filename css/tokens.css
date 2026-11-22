@@ -91,6 +91,15 @@
   color-scheme: light;
 }
 
+/* スマートフォンではセクションの余白と斜めカットを詰め、
+   内容とサービスへの導線に早くたどり着けるようにする */
+@media (max-width: 719px) {
+  :root {
+    --space-section: 3.25rem;
+    --edge-h: 4vw;
+  }
+}
+
 /* 暗色セクション（ブルーブラック面） */
 .theme-ink {
   --surface: var(--c-ink);

@@ -23,6 +23,7 @@ YQ.config = {
         { key: "services",     ja: "事業一覧",                 href: "services.html" },
         { key: "encyclopedia", ja: "日本企業百科事典について", href: "encyclopedia.html" },
         { key: "encyclopedia-app", ja: "日本企業百科事典を見る", href: "https://kigyo-hyakka.com/", external: true },
+        { key: "learn-app",        ja: "学習サービス（分析訓練環境）", href: "https://kigyo-hyakka.com/learn", external: true },
         { key: "shindan-app",      ja: "企業タイプ診断をはじめる", href: "https://shindan.kigyo-hyakka.com/", external: true }
       ]
     },
