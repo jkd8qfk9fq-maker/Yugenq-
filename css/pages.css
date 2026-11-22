@@ -250,3 +250,77 @@
 .page-hero__title--article {
   font-size: var(--fs-2xl);
 }
+
+/* ---- 全ページ共通：スマートフォンの導線と余白の調整 -------------------------
+   スマートフォンでは余白を詰め、サービス一覧と各サービスへの導線ボタンに
+   早くたどり着けるようにする。読み込み順が components.css / layout.css の
+   後のため、同じ詳細度の指定はここが優先される。 */
+@media (max-width: 719px) {
+  /* 下層ページのヒーロー：見出しまでの距離を詰める */
+  .page-hero {
+    padding-top: calc(var(--space-8) + var(--space-4));
+    padding-bottom: var(--space-7);
+  }
+
+  .page-visual {
+    margin-top: var(--space-6);
+  }
+
+  /* セクション内の見出しと本文の間隔 */
+  .section-body {
+    gap: var(--space-5);
+  }
+
+  /* サービス一覧のカード：余白を詰めて一覧性を上げる */
+  .row-list {
+    gap: var(--space-3);
+  }
+
+  .row-list__item {
+    gap: var(--space-2);
+    padding: var(--space-5);
+  }
+
+  /* サービス詳細：区切りごとの余白を詰める */
+  .detail {
+    gap: var(--space-5);
+    padding-block: var(--space-6);
+  }
+
+  .detail__cols {
+    gap: var(--space-5);
+  }
+
+  /* CTA帯 */
+  .cta-band {
+    padding-block: var(--space-7);
+  }
+
+  /* フッター */
+  .site-footer {
+    padding-block: var(--space-7) var(--space-5);
+  }
+
+  .site-footer__top {
+    gap: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
+}
+
+/* HOMEのヒーロー：スマートフォンでは高さを少し抑え、
+   事業概要（サービス一覧）に早くたどり着けるようにする */
+@media (max-width: 959px) {
+  .hero {
+    min-height: calc(92svh - var(--header-h));
+    padding-top: max(10rem, 26svh);
+  }
+
+  .hero__foot {
+    gap: var(--space-5);
+  }
+
+  .hero .button-group .button {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
