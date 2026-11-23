@@ -1,61 +1,14 @@
 # ==========================================================================
-# Netlify 設定
-# GitHub の main ブランチに push されると、Netlify がこのフォルダを自動で公開する。
-# ビルドは不要（HTML / CSS / JavaScript をそのまま配信する）。
+# Netlify 設定（旧公開先）
+# 公開は Cloudflare（yugenq.kigyo-hyakka.com、wrangler.jsonc）に移した。
+# 旧アドレス（yugenqjp.netlify.app）への訪問は、同じパスのまま新しいアドレスへ恒久転送する。
 # ==========================================================================
 
 [build]
   publish = "."
 
-# --------------------------------------------------------------------------
-# サイトの運用ファイルは公開しない（404 を返す）
-# --------------------------------------------------------------------------
 [[redirects]]
-  from = "/README.md"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/CLAUDE.md"
-  to = "/404.html"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/netlify.toml"
-  to = "/404.html"
-  status = 404
-  force = true
-
-# --------------------------------------------------------------------------
-# 削除したページ（インサイト）へのアクセスはトップページへ転送する
-# --------------------------------------------------------------------------
-[[redirects]]
-  from = "/insights.html"
-  to = "/"
+  from = "/*"
+  to = "https://yugenq.kigyo-hyakka.com/:splat"
   status = 301
   force = true
-
-[[redirects]]
-  from = "/insights/*"
-  to = "/"
-  status = 301
-  force = true
-
-# --------------------------------------------------------------------------
-# セキュリティ関連のヘッダー（全ページ）
-# --------------------------------------------------------------------------
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "SAMEORIGIN"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-
-# 画像・アイコンはブラウザに1週間キャッシュさせる
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=604800"

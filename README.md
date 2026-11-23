@@ -10,35 +10,20 @@ HTML / CSS を中心に、ビルド不要で動く静的サイトです。共通
 npx serve .
 ```
 
-## 公開（GitHub → Netlify 自動デプロイ）
+## 公開（GitHub → Cloudflare 自動デプロイ）
 
-GitHub リポジトリ [jkd8qfk9fq-maker/Yugenq-](https://github.com/jkd8qfk9fq-maker/Yugenq-) の `main` ブランチに push すると、Netlify が自動で公開サイトを更新します。ビルドは不要で、このフォルダがそのまま公開されます（設定は `netlify.toml`）。
+GitHub リポジトリ [jkd8qfk9fq-maker/Yugenq-](https://github.com/jkd8qfk9fq-maker/Yugenq-) の `main` ブランチに push すると、Cloudflare（Workers Builds）が自動で公開サイト https://yugenq.kigyo-hyakka.com を更新します。ビルドは不要で、このフォルダがそのまま公開されます（設定は `wrangler.jsonc`）。
 
 ```
-ファイルを編集 → git commit → git push（main）→ Netlify が自動で公開
+ファイルを編集 → git commit → git push（main）→ Cloudflare が自動で公開
 ```
 
-### Netlify の初回設定（1回だけ）
-
-1. https://app.netlify.com/ に GitHub アカウントでログインする
-2. 「Add new project（Add new site）」→「Import an existing project」→「GitHub」を選び、Netlify からのアクセスを許可する
-3. リポジトリ一覧から `Yugenq-` を選ぶ
-4. 設定画面は次のとおりにする（`netlify.toml` があるので、通常は自動で入力される）
-   - Branch to deploy：`main`
-   - Base directory：空欄
-   - Build command：空欄
-   - Publish directory：`.`
-5. 「Deploy」を押す。1分ほどで `https://（ランダムな名前）.netlify.app` で公開される
-6. 「Site configuration」→「Change site name」で、URLの名前を変更できる（例: `yugenq.netlify.app`）
-
-### 公開後の運用
-
-- `main` に push するたびに自動で再公開される。履歴は Netlify の「Deploys」で確認できる
-- 公開後に問題が見つかった場合は、「Deploys」で前回の公開を選び「Publish deploy」を押すと元に戻せる
-- 独自ドメインを使う場合は「Domain management」で設定する。ドメインが決まったら、SEO の「公開ドメインが決まったら追加するもの」も対応する
+- 公開先は契約中の kigyo-hyakka.com のサブドメイン（Worker 名 `yugenq-site`）。百科事典・企業タイプ診断と同じドメインなので、閲覧統計の同意のクッキーも共有される
+- 履歴は Cloudflare ダッシュボードの Workers & Pages → yugenq-site → Deployments で確認でき、前の版に戻せる
 - 存在しないURLにアクセスされたときは `404.html` が表示される
-- `README.md`・`CLAUDE.md`・`netlify.toml` は公開サイトからは見えない（404 を返す）
-- 削除したインサイトのページ（`/insights.html`・`/insights/…`）へのアクセスはトップページへ転送する
+- `README.md`・`CLAUDE.md`・`netlify.toml`・`wrangler.jsonc` は `.assetsignore` で公開サイトから見えない（404 を返す）
+- セキュリティのヘッダーは `_headers`、削除したインサイトのページ（`/insights.html`・`/insights/…`）のトップへの転送は `_redirects`
+- 旧公開先の Netlify（yugenqjp.netlify.app）は `netlify.toml` で、同じパスのまま新しいアドレスへ 301 転送する
 
 ## ディレクトリ構成
 
@@ -51,8 +36,9 @@ yugenq-site/
 ├─ about.html              ABOUT（ビジョン・運営方針・会社概要）
 ├─ contact.html            CONTACT（問い合わせフォーム）
 ├─ privacy.html            プライバシーポリシー
-├─ 404.html                ページが見つからないときの表示（Netlify が自動で使う）
-├─ netlify.toml            Netlify の公開設定
+├─ 404.html                ページが見つからないときの表示
+├─ wrangler.jsonc          Cloudflare の公開設定（_headers・_redirects・.assetsignore も）
+├─ netlify.toml            旧公開先 Netlify から新しいアドレスへの転送
 ├─ CLAUDE.md               Claude Code 向けの作業ルール
 ├─ css/
 │  ├─ tokens.css           色・書体・余白などのデザイントークン
@@ -145,7 +131,7 @@ yugenq-site/
 
 Cookie を使わない計測なので、同意のバナーは不要です（プライバシーポリシーに記載済み）。
 
-1. Cloudflare ダッシュボード → Analytics & Logs → Web Analytics → Add a site で `yugenqjp.netlify.app` を登録する
+1. Cloudflare ダッシュボード → Analytics & Logs → Web Analytics → Add a site で `yugenq.kigyo-hyakka.com` を登録する
 2. 表示されたスニペットの `"token": "…"` の値を、`js/site.config.js` の `analytics.cloudflareToken` に入れる（公開される値で、秘密ではない）
 3. commit・push して公開すると、数分後から Web Analytics の画面にページビューが出る
 
@@ -173,19 +159,19 @@ Cookie を使わない計測なので、同意のバナーは不要です（プ�
 
 ページを追加するときは、既存ページの `<head>` を複製し、`title`・`description`・`og:title`・`og:description`・`og:image` をそのページの内容に書き換えてください。
 
-### 公開URLにもとづく設定（https://yugenqjp.netlify.app）
+### 公開URLにもとづく設定（https://yugenq.kigyo-hyakka.com）
 
-- `<link rel="canonical">` と `og:url`：各ページの正式なURL。Netlify では `/services` と `/services.html` のどちらでも表示されるため、`.html` 付きのURLに統一している
+- `<link rel="canonical">` と `og:url`：各ページの正式なURL。`.html` 付きのURLに統一している（`wrangler.jsonc` の html_handling は none）
 - `sitemap.xml`：検索結果に載せたい7ページ（プライバシーポリシーを含む）。`robots.txt` にも場所を記載
 - 構造化データ（JSON-LD）：トップに組織情報（Organization。X・Instagram・YouTube へのリンクを含む）とサイト情報（WebSite）、下層ページにパンくずリスト（BreadcrumbList）
 
 ページを追加・更新したときは、そのページの canonical・og:url・パンくずの JSON-LD を入れ、`sitemap.xml` に URL を追加して `lastmod`（更新日）を書き換えてください。
 
-**独自ドメインに切り替えるとき**は、全ファイルの `https://yugenqjp.netlify.app` を新しいドメインに一括置換してください（各ページの head、`sitemap.xml`、`robots.txt`）。
+**公開アドレスを変えるとき**は、全ファイルの `https://yugenq.kigyo-hyakka.com` を新しいアドレスに一括置換してください（各ページの head、`sitemap.xml`、`robots.txt`）。
 
 ### 公開後にやること
 
-1. [Google Search Console](https://search.google.com/search-console) で「URLプレフィックス」に `https://yugenqjp.netlify.app/` を登録する（所有権の確認は「HTMLタグ」方式が簡単。表示された `<meta name="google-site-verification" …>` を index.html の head に追加して公開する）
+1. [Google Search Console](https://search.google.com/search-console) で「URLプレフィックス」に `https://yugenq.kigyo-hyakka.com/` を登録する（kigyo-hyakka.com はドメイン単位でも確認済み）（所有権の確認は「HTMLタグ」方式が簡単。表示された `<meta name="google-site-verification" …>` を index.html の head に追加して公開する）
    - 所有権の確認には HTML ファイル方式を使っている（`googlef20d9ddbb5815a8d.html`）。**削除すると確認が外れるため、消さないこと**
 2. 「サイトマップ」に `sitemap.xml` を送信する
 3. [リッチリザルト テスト](https://search.google.com/test/rich-results) でトップページと下層ページを確認し、構造化データにエラーがないか見る

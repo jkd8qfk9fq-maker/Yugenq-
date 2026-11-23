@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yugenqjp.netlify.app/sitemap.xml
+Sitemap: https://yugenq.kigyo-hyakka.com/sitemap.xml
