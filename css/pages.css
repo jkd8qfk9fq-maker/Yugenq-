@@ -41,10 +41,20 @@
     linear-gradient(100deg, rgba(14, 23, 36, 0.9) 0%, rgba(14, 23, 36, 0.25) 70%);
 }
 
-/* スマートフォン：上部に富士山の山頂を見せ、文字は下半分に置く */
+/* スマートフォン：上部に富士山の山頂を見せ、文字は下半分に置く。
+   画面いっぱいの高さにすると、最初の画面が写真と見出しだけで終わり、何の会社かもボタンも見えなかった。
+   高さは中身に合わせ（下の「HOMEのヒーロー」）、見出しも1行に収まる大きさにする。 */
 @media (max-width: 959px) {
-  .hero {
-    padding-top: max(13rem, 30svh);
+  .hero__title {
+    font-size: clamp(2rem, 1rem + 4.5vw, 3.25rem);
+  }
+
+  .hero__inner {
+    gap: 1.25rem;
+  }
+
+  .hero__lead {
+    line-height: 1.85;
   }
 
   .hero__visual {
@@ -307,12 +317,13 @@
   }
 }
 
-/* HOMEのヒーロー：スマートフォンでは高さを少し抑え、
-   事業概要（サービス一覧）に早くたどり着けるようにする */
+/* HOMEのヒーロー：スマートフォンでは高さを中身に合わせ、
+   何の会社か（説明）と最初のボタンまでが最初の画面に入るようにする */
 @media (max-width: 959px) {
   .hero {
-    min-height: calc(92svh - var(--header-h));
-    padding-top: max(10rem, 26svh);
+    min-height: 0;
+    padding-top: 7rem;
+    padding-bottom: calc(var(--edge-h) + 2.5rem);
   }
 
   .hero__foot {
