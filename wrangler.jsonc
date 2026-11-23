@@ -1,0 +1,14 @@
+{
+  // 公開の設定（Cloudflare Workers の静的配信）。main に push すると Cloudflare が自動で公開する。
+  // 契約中の kigyo-hyakka.com のサブドメインで配信する（百科事典・診断と同じドメインにまとめ、同意のクッキーも共有できる）。
+  // ビルドは不要。リポジトリのルートをそのまま配信し、運用ファイルは .assetsignore で除く。
+  "name": "yugenq-site",
+  "compatibility_date": "2026-10-01",
+  "routes": [{ "pattern": "yugenq.kigyo-hyakka.com", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./",
+    "not_found_handling": "404-page"
+  }
+}

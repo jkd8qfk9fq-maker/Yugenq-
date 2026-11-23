@@ -1,0 +1,10 @@
+# 公開しない運用ファイル（以前は netlify.toml で 404 にしていた）
+.git
+.github
+.gitignore
+.assetsignore
+README.md
+CLAUDE.md
+netlify.toml
+wrangler.jsonc
+node_modules
