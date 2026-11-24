@@ -1,3 +1,6 @@
 # 削除したページ（インサイト）へのアクセスはトップページへ転送する
 /insights.html / 301
 /insights/* / 301
+
+# html_handling を none にしているため、ルートは index.html を明示して返す
+/ /index.html 200
